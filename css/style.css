@@ -1013,3 +1013,42 @@ footer p {
         grid-template-columns: 1fr;
     }
 }
+
+:root {
+    /* === MÀU SẮC - RYO YAMADA THEME === */
+    --bg-primary:    #0B0E14;   /* Nền chính - Đen xanh thẳm */
+    --bg-secondary:  #10151E;   /* Nền xen kẽ */
+    --bg-card:       #151C28;   /* Nền card */
+    --bg-terminal:   #090C11;   /* Nền terminal tối hơn */
+
+    --accent-blue:   #2C4F91;
+    --accent-sky:    #EAB308;
+    --accent-glow:   rgba(234, 179, 8, 0.15);
+    --border-accent: rgba(234, 179, 8, 0.3);
+
+    --text-primary:  #F8FAFC;   /* Chữ chính */
+    --text-secondary:#94A3B8;   /* Chữ phụ */
+    --text-muted:    #475569;   /* Chữ mờ */
+    --text-code:     #93C5FD;   /* Màu chữ code - Xanh nhạt */
+
+    --border:        rgba(255, 255, 255, 0.05);
+    --border-accent: rgba(234, 179, 8, 0.3);   /* Viền accent vàng */
+
+    /* [Giữ nguyên các biến Typography, Kích thước, Hiệu ứng của bạn...] */
+}
+
+/* Thêm hình ảnh Ryo Yamada chìm vào background của Hero */
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('/assets/ryoyamada.jpg');
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    z-index: 0;  /* Phải là 0, KHÔNG phải 10 */
+    opacity: 0.18; /* Ảnh chìm mờ — chỉnh số này: 0.1 mờ hơn, 0.3 rõ hơn */
+}
+
+.hero-grid    { z-index: 1; } /* Thêm dòng này */
+.hero-content { z-index: 2; } /* Đã có sẵn, kiểm tra là z-index: 1 trở lên */
