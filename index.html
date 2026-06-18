@@ -3,285 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Olive June Math | Portfolio</title>
+    <meta name="description" content="Portfolio CV trực tuyến của Olive June Math, sinh viên Khoa học Máy tính và Thông Tin tại VNU-HUS.">
+    <title>Olive June Math | Portfolio CV</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<header class="site-header" id="top">
+    <nav class="navbar" id="navbar" aria-label="Điều hướng chính">
+        <a href="#top" class="brand" aria-label="Olive June Math">
+            <span class="brand-mark">OJM</span>
+            <span class="brand-text">Olive June Math</span>
+        </a>
 
-<nav class="navbar" id="navbar">
-    <div class="container">
-        <a href="#" class="nav-logo">~/<span>OJM</span></a>
-
-        <button class="nav-toggle" id="nav-toggle">
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="nav-links">
             <span></span>
             <span></span>
             <span></span>
         </button>
 
-        <ul class="nav-links">
-            <li><a href="#about">Về tôi</a></li>
-            <li><a href="#skills">Kỹ năng</a></li>
-            <li><a href="#projects">Dự án</a></li>
-            <li><a href="#blog">Blog</a></li>
-            <li><a href="#contact">Liên hệ</a></li>
-            <li><a href="assets/CV-NguyenVanA.pdf" target="_blank" class="btn-nav">Tải CV ↗</a></li>
-        </ul>
-    </div>
-</nav>
+        <div class="nav-links" id="nav-links">
+            <a href="#about">Giới thiệu</a>
+            <a href="#skills">Kỹ năng</a>
+            <a href="#projects">Dự án</a>
+            <a href="#notes">Ghi chú</a>
+            <a href="#contact">Liên hệ</a>
+        </div>
+    </nav>
 
-<div class="nav-mobile" id="nav-mobile">
-    <a href="about">Về tôi</a>
-    <a href="skills">Kỹ năng</a>
-    <a href="projects">Dự án</a>
-    <a href="blog">Blog</a>
-    <a href="contact">Liên hệ</a>
-    <a href="assets/CV-NguyenVanA.pdf" target="_blank" style="color: var(--accent-sky);">Tải CV ↗</a>
-</div>
+    <section class="hero section-shell">
+        <div class="hero-content">
+            <p class="eyebrow">Portfolio CV trực tuyến</p>
+            <h1>Olive June Math</h1>
+            <p class="hero-lead">
+                Sinh viên năm thứ nhất ngành Khoa học Máy tính và Thông Tin tại Trường Đại học Khoa học Tự nhiên - Đại học Quốc gia Hà Nội (VNU-HUS).
+            </p>
+            <p class="hero-summary">
+                Đang học tập và tích cực xây dựng portfolio sản phẩm, tập trung sâu vào nền tảng lập trình vững chắc, kiến trúc hệ thống và các ứng dụng toán học trong khoa học máy tính.
+            </p>
 
-<header class="hero">
-    <div class="hero-grid"></div>
-    <div class="hero-glow"></div>
-
-    <div class="hero-content">
-        <div class="terminal-window">
-            <div class="terminal-bar">
-                <span class="terminal-dot red"></span>
-                <span class="terminal-dot yellow"></span>
-                <span class="terminal-dot green"></span>
-                <span class="terminal-title">bash — olive@vnu-hus: ~</span>
+            <div class="hero-actions" aria-label="Hành động nhanh">
+                <button class="btn btn-primary" type="button" id="download-cv">
+                    <span aria-hidden="true">↓</span>
+                    Tải CV (PDF)
+                </button>
+                <button class="btn btn-secondary" type="button" id="print-cv">
+                    <span aria-hidden="true">⌘</span>
+                    In / Lưu PDF
+                </button>
+                <a class="btn btn-ghost" href="#projects">Xem dự án</a>
             </div>
-            <div class="terminal-body">
-                <div class="terminal-line">
-                    <span class="prompt">olive@vnu-hus<span class="prompt-path">:~</span>$</span>
-                    <span class="cmd" id="type-whoami"></span>
-                </div>
-                <div class="output" id="output-whoami" style="display:none;">Olive June Math</div>
+        </div>
 
-                <div class="terminal-line" id="line-cat" style="display:none;">
-                    <span class="prompt">olive@vnu-hus<span class="prompt-path">:~</span>$</span>
-                    <span class="cmd" id="type-cat"></span>
+        <aside class="hero-panel" aria-label="Trạng thái hiện tại">
+            <div class="hero-avatar-frame" aria-label="Avatar Anime của Olive June Math">
+                <span class="avatar-fallback" aria-hidden="true">OJM</span>
+                <img class="hero-avatar" src="assets/hero-avatar.png" alt="Avatar Anime của Olive June Math" data-avatar>
+            </div>
+            <div class="terminal-card">
+                <div class="terminal-topbar">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
-                <div class="output" id="output-cat" style="display:none;">
+                <div class="terminal-lines" aria-label="Terminal giới thiệu tự động">
+                    <div class="terminal-line">
+                        <span class="prompt">olive@vnu-hus<span class="prompt-path">:~</span>$</span>
+                        <span class="cmd" id="type-whoami"></span>
+                    </div>
+                    <div class="terminal-output" id="output-whoami" hidden>Olive June Math</div>
+
+                    <div class="terminal-line" id="line-cat" hidden>
+                        <span class="prompt">olive@vnu-hus<span class="prompt-path">:~</span>$</span>
+                        <span class="cmd" id="type-cat"></span>
+                    </div>
+                    <div class="terminal-output" id="output-cat" hidden>
                         <pre class="json-output">{
   "<span class="output-key">school</span>": "<span class="output-value">Đại học Khoa học Tự nhiên - VNU-HUS</span>",
-  "<span class="output-key">major</span>": "<span class="output-value">Khoa học Máy tính và Thông Tin — Năm 1</span>",
+  "<span class="output-key">major</span>": "<span class="output-value">Khoa học Máy tính và Thông Tin - Năm 1</span>",
   "<span class="output-key">interests</span>": ["<span class="output-value">Java OOP</span>", "<span class="output-value">Linux</span>", "<span class="output-value">Toán học</span>"],
-  "<span class="output-key">status</span>": "<span class="output-value">Đang học & xây dựng portfolio 🚀</span>"
+  "<span class="output-key">status</span>": "<span class="output-value">Đang học & xây dựng portfolio</span>"
 }</pre>
-                </div>
+                    </div>
 
-                <div class="terminal-line" id="line-end" style="display:none;">
-                    <span class="prompt">olive@vnu-hus<span class="prompt-path">:~</span>$</span>
-                    <span class="cursor"></span>
+                    <div class="terminal-line" id="line-end" hidden>
+                        <span class="prompt">olive@vnu-hus<span class="prompt-path">:~</span>$</span>
+                        <span class="cursor" aria-hidden="true"></span>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="hero-cta">
-            <a href="#projects" class="btn-primary">Xem dự án của tôi ↓</a>
-            <a href="#contact" class="btn-secondary">Liên hệ →</a>
-        </div>
-    </div>
-
-    <div class="hero-scroll">
-        <span>SCROLL</span>
-    </div>
+        </aside>
+    </section>
 </header>
 
-<section id="about" class="section about reveal">
-    <div class="container">
-        <p class="section-label">// về tôi</p>
-        <h2 class="section-title">Xin chào! Tôi là <span class="highlight">Olive June Math</span></h2>
+<main>
+    <section class="stats section-shell" aria-label="Chỉ số nổi bật">
+        <article class="stat-card">
+            <strong>1+</strong>
+            <span>Năm kinh nghiệm học tập chính quy</span>
+        </article>
+        <article class="stat-card">
+            <strong>3</strong>
+            <span>Lĩnh vực kỹ năng chính đang phát triển</span>
+        </article>
+        <article class="stat-card">
+            <strong>10+</strong>
+            <span>Bài tập và dự án nhỏ đã hoàn thành</span>
+        </article>
+    </section>
 
+    <section class="section-shell content-section" id="about">
+        <div class="section-heading">
+            <p class="section-kicker">Giới thiệu</p>
+            <h2>Nền tảng học thuật và định hướng phát triển</h2>
+        </div>
         <div class="about-grid">
-            <div class="about-text">
-                <p>Tôi là sinh viên năm nhất ngành Khoa học Máy tính và Thông Tin tại Trường Đại học Khoa học Tự nhiên — Đại học Quốc gia Hà Nội (VNU-HUS). Trang này là nơi tôi ghi lại hành trình học tập, từ những bài tập đầu tiên đến các dự án thực tế.</p>
-                <p>Tôi đặc biệt quan tâm đến lập trình hướng đối tượng với Java, quản trị hệ thống Linux và các ứng dụng toán học trong khoa học máy tính. Mỗi bài tập là một bước tiến nhỏ, và tôi tin rằng sự kiên trì sẽ tạo nên nền tảng vững chắc.</p>
+            <div class="text-stack">
+                <p>
+                    Tôi đang xây dựng nền tảng khoa học máy tính từ những kiến thức cốt lõi: lập trình hướng đối tượng, hệ thống Linux, xử lý dữ liệu dòng lệnh và toán học ứng dụng.
+                </p>
+                <p>
+                    Mục tiêu của portfolio này là ghi lại quá trình học, các bài thực hành và những dự án nhỏ có thể chứng minh khả năng tư duy logic, tổ chức mã nguồn và giải quyết vấn đề.
+                </p>
             </div>
-
-            <div class="about-stats">
-                <div class="stat-card">
-                    <span class="stat-number">1+</span>
-                    <span class="stat-label">Năm kinh nghiệm học tập chính quy</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">3</span>
-                    <span class="stat-label">Lĩnh vực kỹ năng đang phát triển</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">10+</span>
-                    <span class="stat-label">Bài tập & dự án hoàn thành</span>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number">∞</span>
-                    <span class="stat-label">Đam mê với khoa học máy tính</span>
-                </div>
+            <div class="profile-card">
+                <dl>
+                    <div>
+                        <dt>Trường</dt>
+                        <dd>VNU-HUS</dd>
+                    </div>
+                    <div>
+                        <dt>Ngành</dt>
+                        <dd>Khoa học Máy tính và Thông Tin</dd>
+                    </div>
+                    <div>
+                        <dt>Trạng thái</dt>
+                        <dd>Đang học tập và xây dựng portfolio</dd>
+                    </div>
+                </dl>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section id="skills" class="section reveal">
-    <div class="container">
-        <p class="section-label">// kỹ năng</p>
-        <h2 class="section-title">Những gì tôi đang học</h2>
-        <p class="section-desc">Tập trung vào nền tảng lập trình vững chắc, hệ thống và toán học — những công cụ thiết yếu của một kỹ sư phần mềm.</p>
+    <section class="section-shell content-section" id="skills">
+        <div class="section-heading">
+            <p class="section-kicker">Hồ sơ kỹ năng</p>
+            <h2>Kỹ năng chuyên môn đang phát triển</h2>
+        </div>
 
         <div class="skills-grid">
-            <div class="skill-card">
-                <span class="skill-icon">☕</span>
-                <h3 class="skill-name">Java — OOP</h3>
-                <p class="skill-desc">Lập trình hướng đối tượng với Java: kế thừa, đa hình, đóng gói, trừu tượng hóa. Áp dụng vào các bài tập quản lý sinh viên, thư viện.</p>
-                <div class="skill-tags">
-                    <span class="tag">Java 17</span>
-                    <span class="tag">OOP</span>
-                    <span class="tag">Collections</span>
-                    <span class="tag">Exceptions</span>
+            <article class="skill-card">
+                <div class="card-icon" aria-hidden="true">J</div>
+                <h3>Java - OOP</h3>
+                <p>Kế thừa, đa hình, đóng gói, trừu tượng hóa, Exceptions và Collections Framework. Áp dụng qua các bài toán quản lý sinh viên, thư viện.</p>
+                <div class="badge-row">
+                    <span>Kế thừa</span>
+                    <span>Đa hình</span>
+                    <span>Collections</span>
+                    <span>Exceptions</span>
+                    <span>ArrayList</span>
                 </div>
-            </div>
+            </article>
 
-            <div class="skill-card">
-                <span class="skill-icon">🐧</span>
-                <h3 class="skill-name">Linux & Bash</h3>
-                <p class="skill-desc">Quản trị hệ thống Linux, viết shell script tự động hóa tác vụ. Sử dụng AWK, sed, grep để xử lý dữ liệu hiệu quả.</p>
-                <div class="skill-tags">
-                    <span class="tag">Bash</span>
-                    <span class="tag">AWK</span>
-                    <span class="tag">sed</span>
-                    <span class="tag">Linux CLI</span>
+            <article class="skill-card">
+                <div class="card-icon" aria-hidden="true">$</div>
+                <h3>Linux & Bash System</h3>
+                <p>Quản trị hệ thống Linux, viết Shell Script tự động hóa và sử dụng các công cụ xử lý text chuyên sâu như AWK, sed, grep và Linux CLI.</p>
+                <div class="badge-row">
+                    <span>Bash</span>
+                    <span>AWK</span>
+                    <span>sed</span>
+                    <span>grep</span>
+                    <span>Linux CLI</span>
                 </div>
-            </div>
+            </article>
 
-            <div class="skill-card">
-                <span class="skill-icon">📐</span>
-                <h3 class="skill-name">Toán học Nền tảng</h3>
-                <p class="skill-desc">Đại số tuyến tính (ma trận, không gian vecto, trị riêng), Giải tích (đạo hàm, tích phân) — nền tảng định hình tư duy thuật toán.</p>
-                <div class="skill-tags">
-                    <span class="tag">Đại số tuyến tính</span>
-                    <span class="tag">Giải tích</span>
-                    <span class="tag">MATLAB</span>
+            <article class="skill-card">
+                <div class="card-icon" aria-hidden="true">Σ</div>
+                <h3>Computer Science Math</h3>
+                <p>Đại số tuyến tính, ma trận, không gian vectơ, trị riêng, vectơ riêng, Giải tích và ứng dụng tính toán qua MATLAB.</p>
+                <div class="badge-row">
+                    <span>Ma trận</span>
+                    <span>Vectơ</span>
+                    <span>Trị riêng</span>
+                    <span>Giải tích</span>
+                    <span>MATLAB</span>
                 </div>
-            </div>
+            </article>
         </div>
-    </div>
-</section>
+    </section>
 
-<section id="projects" class="section projects reveal">
-    <div class="container">
-        <p class="section-label">// dự án</p>
-        <h2 class="section-title">Những gì tôi đã xây dựng</h2>
-        <p class="section-desc">Các bài tập thực hành và dự án nhỏ — mỗi cái là một bài học thực tế về code, logic và giải quyết vấn đề.</p>
+    <section class="section-shell content-section" id="projects">
+        <div class="section-heading">
+            <p class="section-kicker">Dự án tiêu biểu</p>
+            <h2>Sản phẩm học tập có tính thực hành</h2>
+        </div>
 
         <div class="projects-grid">
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-folder">📁</span>
-                    <div class="project-links">
-                        <a href="#" class="project-link" title="Xem mã nguồn">🔗</a>
-                    </div>
+            <article class="project-card">
+                <div class="project-meta">
+                    <span>Java OOP</span>
+                    <span>Console App</span>
                 </div>
-                <h3 class="project-title">Hệ thống Quản lý Sinh viên (Java OOP)</h3>
-                <p class="project-desc">Ứng dụng console Java mô phỏng hệ thống quản lý với đầy đủ các chức năng CRUD. Áp dụng tốt kiến thức kế thừa, interface và ArrayList.</p>
-                <div class="project-tags">
-                    <span class="tag">Java OOP</span>
-                    <span class="tag">Collections</span>
+                <h3>Hệ thống Quản lý Sinh viên</h3>
+                <p>Ứng dụng console Java mô phỏng hệ thống quản lý đầy đủ chức năng CRUD; áp dụng triệt để kiến thức về kế thừa, interface và ArrayList.</p>
+            </article>
+
+            <article class="project-card">
+                <div class="project-meta">
+                    <span>Bash</span>
+                    <span>Automation</span>
                 </div>
+                <h3>Phân tích Log với AWK & Bash</h3>
+                <p>Script shell tự động quét và phân tích file log hệ thống: thống kê lượt truy cập, lọc mã lỗi, xuất báo cáo CSV và cấu hình cron job chạy định kỳ.</p>
+            </article>
+
+            <article class="project-card">
+                <div class="project-meta">
+                    <span>Math</span>
+                    <span>Matrix</span>
+                </div>
+                <h3>Trình tính toán Ma trận</h3>
+                <p>Chương trình thực hiện phép toán phức tạp: nhân ma trận, tìm ma trận nghịch đảo, tính trị riêng và vectơ riêng để minh họa ứng dụng toán máy tính.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section-shell content-section" id="notes">
+        <div class="section-heading">
+            <p class="section-kicker">Blog học tập</p>
+            <h2>Ghi chú và bài viết ngắn</h2>
+        </div>
+
+        <div class="notes-list">
+            <article class="note-item">
+                <time datetime="2025-06-01">01/06/2025</time>
+                <h3>Hiểu về Tính đa hình trong Java OOP</h3>
+            </article>
+            <article class="note-item">
+                <time datetime="2025-05-20">20/05/2025</time>
+                <h3>AWK từ cơ bản đến xử lý file CSV phức tạp</h3>
+            </article>
+            <article class="note-item">
+                <time datetime="2025-05-05">05/05/2025</time>
+                <h3>Ý nghĩa hình học của trị riêng và vectơ riêng</h3>
+            </article>
+        </div>
+    </section>
+
+    <section class="section-shell content-section contact-section" id="contact">
+        <div class="section-heading">
+            <p class="section-kicker">Liên hệ</p>
+            <h2>Sẵn sàng trao đổi về học tập và dự án</h2>
+        </div>
+
+        <div class="contact-grid">
+            <div class="email-card">
+                <span>Email</span>
+                <a href="mailto:linhtltcs2@gmail.com" id="email-address">linhtltcs2@gmail.com</a>
+                <button class="copy-button" type="button" id="copy-email" data-copy="linhtltcs2@gmail.com">Copy</button>
             </div>
 
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-folder">📁</span>
-                    <div class="project-links">
-                        <a href="#" class="project-link" title="Xem mã nguồn">🔗</a>
-                    </div>
-                </div>
-                <h3 class="project-title">Phân tích Log với AWK & Bash</h3>
-                <p class="project-desc">Script shell tự động phân tích file log hệ thống: thống kê số lần truy cập, lọc lỗi, tạo báo cáo CSV và lên lịch cron định kỳ.</p>
-                <div class="project-tags">
-                    <span class="tag">Bash</span>
-                    <span class="tag">AWK</span>
-                    <span class="tag">Automation</span>
-                </div>
-            </div>
-
-            <div class="project-card">
-                <div class="project-header">
-                    <span class="project-folder">📁</span>
-                    <div class="project-links">
-                        <a href="#" class="project-link" title="Xem mã nguồn">🔗</a>
-                    </div>
-                </div>
-                <h3 class="project-title">Tính toán Ma trận — Đại số Tuyến tính</h3>
-                <p class="project-desc">Chương trình thực hiện các phép tính ma trận: nhân, nghịch đảo, tìm trị riêng và vecto riêng để minh họa trực quan toán học máy tính.</p>
-                <div class="project-tags">
-                    <span class="tag">Java</span>
-                    <span class="tag">Ma trận</span>
-                    <span class="tag">Đại số TT</span>
-                </div>
+            <div class="social-links" aria-label="Mạng xã hội">
+                <a href="https://github.com/liviaisthebest911-alt" target="_blank" rel="noreferrer">GitHub</a>
+                <a href="#" aria-label="LinkedIn">LinkedIn</a>
+                <a href="https://www.facebook.com/linhtranlethao1167" aria-label="Facebook">Facebook</a>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+</main>
 
-<section id="blog" class="section reveal">
-    <div class="container">
-        <p class="section-label">// blog & ghi chú</p>
-        <h2 class="section-title">Hành trình học tập</h2>
-        <p class="section-desc">Ghi chép lại những bài học, bài tập và khám phá trong quá trình học tập để ôn tập và chia sẻ.</p>
-
-        <div class="blog-list">
-            <a href="#" class="blog-item">
-                <span class="blog-date">01/06/2025</span>
-                <div class="blog-info">
-                    <h4 class="blog-title">Hiểu về Tính đa hình trong Java OOP <span class="badge-new">Mới</span></h4>
-                    <span class="blog-subject">Java · Lập trình OOP</span>
-                </div>
-                <span class="blog-arrow">→</span>
-            </a>
-
-            <a href="#" class="blog-item">
-                <span class="blog-date">20/05/2025</span>
-                <div class="blog-info">
-                    <h4 class="blog-title">AWK từ cơ bản đến xử lý file CSV phức tạp</h4>
-                    <span class="blog-subject">Linux · Bash Scripting</span>
-                </div>
-                <span class="blog-arrow">→</span>
-            </a>
-
-            <a href="#" class="blog-item">
-                <span class="blog-date">05/05/2025</span>
-                <div class="blog-info">
-                    <h4 class="blog-title">Ý nghĩa hình học của trị riêng và vecto riêng</h4>
-                    <span class="blog-subject">Toán học · Đại số Tuyến tính</span>
-                </div>
-                <span class="blog-arrow">→</span>
-            </a>
-        </div>
-    </div>
-</section>
-
-<section id="contact" class="section contact reveal">
-    <div class="container">
-        <p class="section-label">// liên hệ</p>
-        <h2 class="section-title">Kết nối với tôi</h2>
-        <p class="section-desc">Tôi luôn sẵn sàng trao đổi về học thuật, hợp tác dự án hoặc đơn giản là chào hỏi. Hãy liên hệ bất cứ lúc nào!</p>
-
-        <a href="mailto:your.email@example.com" class="contact-email">your.email@example.com</a>
-
-        <div class="social-links">
-            <a href="#" class="social-link"><span class="social-icon">🐙</span> GitHub</a>
-            <a href="#" class="social-link"><span class="social-icon">💼</span> LinkedIn</a>
-            <a href="#" class="social-link"><span class="social-icon">🏆</span> Codeforces</a>
-            <a href="#" class="social-link"><span class="social-icon">📘</span> Facebook</a>
-        </div>
-    </div>
-</section>
-
-<footer>
-    <div class="container">
-        <p>Thiết kế & xây dựng bởi Olive June Math</p>
-        <p>© 2026 · Built with ❤️ and ☕ · VNU-HUS</p>
-    </div>
+<footer class="site-footer">
+    <p>Thiết kế & xây dựng bởi Olive June Math ©2026 | VNU-HUS</p>
 </footer>
 
 <script src="js/main.js"></script>

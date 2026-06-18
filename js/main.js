@@ -1,87 +1,49 @@
-document.addEventListener("DOMContentLoaded", function() {
-
-    // --- HIỆU ỨNG GÕ CHỮ TERMINAL ---
-    const textWhoami = "whoami";
-    const textCat = "cat student.json";
-    let i = 0, j = 0;
-
-    function typeWhoami() {
-        if (i < textWhoami.length) {
-            document.getElementById("type-whoami").innerHTML += textWhoami.charAt(i);
-            i++;
-            setTimeout(typeWhoami, 80);
-        } else {
-            setTimeout(function() {
-                document.getElementById("output-whoami").style.display = "block";
-                document.getElementById("line-cat").style.display = "block";
-                setTimeout(typeCat, 400);
-            }, 300);
-        }
-    }
-
-    function typeCat() {
-        if (j < textCat.length) {
-            document.getElementById("type-cat").innerHTML += textCat.charAt(j);
-            j++;
-            setTimeout(typeCat, 80);
-        } else {
-            setTimeout(function() {
-                document.getElementById("output-cat").style.display = "block";
-                document.getElementById("line-end").style.display = "block";
-            }, 300);
-        }
-    }
-
-    // Khởi động gõ chữ tự động
-    typeWhoami();
-
-
-    // --- ĐỔI MÀU NAVBAR KHI CUỘN TRANG (.navbar.scrolled) ---
-    const navbar = document.getElementById("navbar");
-    window.addEventListener("scroll", function() {
-        if (window.scrollY > 50) {
-            navbar.classList.add("scrolled");
-        } else {
-            navbar.classList.remove("scrolled");
-        }
-    });
-
-
-    // --- MENU ĐIỀU HƯỚNG MOBILE (Hamburger Menu) ---
+document.addEventListener("DOMContentLoaded", () => {
     const navToggle = document.getElementById("nav-toggle");
-    const navMobile = document.getElementById("nav-mobile");
+    const navLinks = document.getElementById("nav-links");
+    const copyEmailButton = document.getElementById("copy-email");
+    const downloadButton = document.getElementById("download-cv");
+    const printButton = document.getElementById("print-cv");
 
-    if (navToggle && navMobile) {
-        navToggle.addEventListener("click", function() {
-            navToggle.classList.toggle("active");
-            navMobile.classList.toggle("open");
+    if (navToggle && navLinks) {
+        navToggle.addEventListener("click", () => {
+            const isOpen = navLinks.classList.toggle("open");
+            navToggle.classList.toggle("active", isOpen);
+            navToggle.setAttribute("aria-expanded", String(isOpen));
         });
 
-        // Đóng menu khi nhấp vào một link bất kỳ trên mobile
-        const mobileLinks = navMobile.querySelectorAll("a");
-        mobileLinks.forEach(link => {
-            link.addEventListener("click", function() {
+        navLinks.querySelectorAll("a").forEach((link) => {
+            link.addEventListener("click", () => {
+                navLinks.classList.remove("open");
                 navToggle.classList.remove("active");
-                navMobile.classList.remove("open");
+                navToggle.setAttribute("aria-expanded", "false");
             });
         });
     }
 
+    if (copyEmailButton) {
+        copyEmailButton.addEventListener("click", async () => {
+            const email = copyEmailButton.dataset.copy || "";
+            const originalText = copyEmailButton.textContent;
 
-    // --- HIỆU ỨNG CUỘN HIỆN HÌNH (.reveal.visible) ---
-    const reveals = document.querySelectorAll(".reveal");
-    function checkReveal() {
-        const windowHeight = window.innerHeight;
-        reveals.forEach(reveal => {
-            const elementTop = reveal.getBoundingClientRect().top;
-            const elementVisible = 100; // Khoảng cách kích hoạt sớm trước khi phần tử lên tới nơi
-
-            if (elementTop < windowHeight - elementVisible) {
-                reveal.classList.add("visible");
+            try {
+                await navigator.clipboard.writeText(email);
+                copyEmailButton.textContent = "Copied";
+                copyEmailButton.classList.add("copied");
+            } catch (error) {
+                copyEmailButton.textContent = email;
             }
+
+            window.setTimeout(() => {
+                copyEmailButton.textContent = originalText;
+                copyEmailButton.classList.remove("copied");
+            }, 1800);
         });
     }
 
-    window.addEventListener("scroll", checkReveal);
-    checkReveal(); // Chạy thử lần đầu ngay khi load trang
+    [downloadButton, printButton].forEach((button) => {
+        if (button) {
+            button.addEventListener("click", () => window.print());
+        }
+    });
 });
