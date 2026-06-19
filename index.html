@@ -1,281 +1,48 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio CV trực tuyến của Olive June Math, sinh viên Khoa học Máy tính và Thông Tin tại VNU-HUS.">
-    <title>Olive June Math | Portfolio CV</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-<header class="site-header" id="top">
-    <nav class="navbar" id="navbar" aria-label="Điều hướng chính">
-        <a href="#top" class="brand" aria-label="Olive June Math">
-            <span class="brand-mark">OJM</span>
-            <span class="brand-text">Olive June Math</span>
-        </a>
+---
+layout: default
+title: Trang chủ
+permalink: /
+---
 
-        <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="nav-links">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+<section class="hero section-shell">
+    <div class="hero-content">
+        <p class="eyebrow">Portfolio CV trực tuyến</p>
 
-        <div class="nav-links" id="nav-links">
-            <a href="#about">Giới thiệu</a>
-            <a href="#skills">Kỹ năng</a>
-            <a href="#projects">Dự án</a>
-            <a href="#notes">Ghi chú</a>
-            <a href="#contact">Liên hệ</a>
+        <h1>Olive June Math</h1>
+
+        <p class="hero-lead">
+            Sinh viên năm thứ nhất ngành Khoa học Máy tính và Thông Tin tại Trường Đại học Khoa học Tự nhiên - Đại học Quốc gia Hà Nội.
+        </p>
+
+        <p class="hero-summary">
+            Đang học tập và tích cực xây dựng portfolio sản phẩm, tập trung vào nền tảng lập trình, kiến trúc hệ thống và toán học ứng dụng.
+        </p>
+
+        <div class="hero-actions">
+            <a class="btn btn-primary" href="{{ '/cv/' | relative_url }}">
+                Xem CV
+            </a>
+
+            <a class="btn btn-ghost" href="{{ '/projects/' | relative_url }}">
+                Xem dự án
+            </a>
         </div>
-    </nav>
+    </div>
+</section>
 
-    <section class="hero section-shell">
-        <div class="hero-content">
-            <p class="eyebrow">Portfolio CV trực tuyến</p>
-            <h1>Olive June Math</h1>
-            <p class="hero-lead">
-                Sinh viên năm thứ nhất ngành Khoa học Máy tính và Thông Tin tại Trường Đại học Khoa học Tự nhiên - Đại học Quốc gia Hà Nội (VNU-HUS).
-            </p>
-            <p class="hero-summary">
-                Đang học tập và tích cực xây dựng portfolio sản phẩm, tập trung sâu vào nền tảng lập trình vững chắc, kiến trúc hệ thống và các ứng dụng toán học trong khoa học máy tính.
-            </p>
+<section class="stats section-shell" aria-label="Chỉ số nổi bật">
+    <article class="stat-card">
+        <strong>1+</strong>
+        <span>Năm kinh nghiệm học tập chính quy</span>
+    </article>
 
-            <div class="hero-actions" aria-label="Hành động nhanh">
-                <button class="btn btn-primary" type="button" id="download-cv">
-                    <span aria-hidden="true">↓</span>
-                    Tải CV (PDF)
-                </button>
-                <button class="btn btn-secondary" type="button" id="print-cv">
-                    <span aria-hidden="true">⌘</span>
-                    In / Lưu PDF
-                </button>
-                <a class="btn btn-ghost" href="#projects">Xem dự án</a>
-            </div>
-        </div>
+    <article class="stat-card">
+        <strong>3</strong>
+        <span>Lĩnh vực kỹ năng chính đang phát triển</span>
+    </article>
 
-        <aside class="hero-panel" aria-label="Trạng thái hiện tại">
-            <div class="hero-avatar-frame" aria-label="Avatar Anime của Olive June Math">
-                <span class="avatar-fallback" aria-hidden="true">OJM</span>
-                <img class="hero-avatar" src="assets/hero-avatar.png" alt="Avatar Anime của Olive June Math" data-avatar>
-            </div>
-            <div class="terminal-card">
-                <div class="terminal-topbar">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <div class="terminal-lines" aria-label="Terminal giới thiệu tự động">
-                    <div class="terminal-line">
-                        <span class="prompt">olive@vnu-hus<span class="prompt-path">:~</span>$</span>
-                        <span class="cmd" id="type-whoami"></span>
-                    </div>
-                    <div class="terminal-output" id="output-whoami" hidden>Olive June Math</div>
-
-                    <div class="terminal-line" id="line-cat" hidden>
-                        <span class="prompt">olive@vnu-hus<span class="prompt-path">:~</span>$</span>
-                        <span class="cmd" id="type-cat"></span>
-                    </div>
-                    <div class="terminal-output" id="output-cat" hidden>
-                        <pre class="json-output">{
-  "<span class="output-key">school</span>": "<span class="output-value">Đại học Khoa học Tự nhiên - VNU-HUS</span>",
-  "<span class="output-key">major</span>": "<span class="output-value">Khoa học Máy tính và Thông Tin - Năm 1</span>",
-  "<span class="output-key">interests</span>": ["<span class="output-value">Java OOP</span>", "<span class="output-value">Linux</span>", "<span class="output-value">Toán học</span>"],
-  "<span class="output-key">status</span>": "<span class="output-value">Đang học & xây dựng portfolio</span>"
-}</pre>
-                    </div>
-
-                    <div class="terminal-line" id="line-end" hidden>
-                        <span class="prompt">olive@vnu-hus<span class="prompt-path">:~</span>$</span>
-                        <span class="cursor" aria-hidden="true"></span>
-                    </div>
-                </div>
-            </div>
-        </aside>
-    </section>
-</header>
-
-<main>
-    <section class="stats section-shell" aria-label="Chỉ số nổi bật">
-        <article class="stat-card">
-            <strong>1+</strong>
-            <span>Năm kinh nghiệm học tập chính quy</span>
-        </article>
-        <article class="stat-card">
-            <strong>3</strong>
-            <span>Lĩnh vực kỹ năng chính đang phát triển</span>
-        </article>
-        <article class="stat-card">
-            <strong>10+</strong>
-            <span>Bài tập và dự án nhỏ đã hoàn thành</span>
-        </article>
-    </section>
-
-    <section class="section-shell content-section" id="about">
-        <div class="section-heading">
-            <p class="section-kicker">Giới thiệu</p>
-            <h2>Nền tảng học thuật và định hướng phát triển</h2>
-        </div>
-        <div class="about-grid">
-            <div class="text-stack">
-                <p>
-                    Tôi đang xây dựng nền tảng khoa học máy tính từ những kiến thức cốt lõi: lập trình hướng đối tượng, hệ thống Linux, xử lý dữ liệu dòng lệnh và toán học ứng dụng.
-                </p>
-                <p>
-                    Mục tiêu của portfolio này là ghi lại quá trình học, các bài thực hành và những dự án nhỏ có thể chứng minh khả năng tư duy logic, tổ chức mã nguồn và giải quyết vấn đề.
-                </p>
-            </div>
-            <div class="profile-card">
-                <dl>
-                    <div>
-                        <dt>Trường</dt>
-                        <dd>VNU-HUS</dd>
-                    </div>
-                    <div>
-                        <dt>Ngành</dt>
-                        <dd>Khoa học Máy tính và Thông Tin</dd>
-                    </div>
-                    <div>
-                        <dt>Trạng thái</dt>
-                        <dd>Đang học tập và xây dựng portfolio</dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
-    </section>
-
-    <section class="section-shell content-section" id="skills">
-        <div class="section-heading">
-            <p class="section-kicker">Hồ sơ kỹ năng</p>
-            <h2>Kỹ năng chuyên môn đang phát triển</h2>
-        </div>
-
-        <div class="skills-grid">
-            <article class="skill-card">
-                <div class="card-icon" aria-hidden="true">J</div>
-                <h3>Java - OOP</h3>
-                <p>Kế thừa, đa hình, đóng gói, trừu tượng hóa, Exceptions và Collections Framework. Áp dụng qua các bài toán quản lý sinh viên, thư viện.</p>
-                <div class="badge-row">
-                    <span>Kế thừa</span>
-                    <span>Đa hình</span>
-                    <span>Collections</span>
-                    <span>Exceptions</span>
-                    <span>ArrayList</span>
-                </div>
-            </article>
-
-            <article class="skill-card">
-                <div class="card-icon" aria-hidden="true">$</div>
-                <h3>Linux & Bash System</h3>
-                <p>Quản trị hệ thống Linux, viết Shell Script tự động hóa và sử dụng các công cụ xử lý text chuyên sâu như AWK, sed, grep và Linux CLI.</p>
-                <div class="badge-row">
-                    <span>Bash</span>
-                    <span>AWK</span>
-                    <span>sed</span>
-                    <span>grep</span>
-                    <span>Linux CLI</span>
-                </div>
-            </article>
-
-            <article class="skill-card">
-                <div class="card-icon" aria-hidden="true">Σ</div>
-                <h3>Computer Science Math</h3>
-                <p>Đại số tuyến tính, ma trận, không gian vectơ, trị riêng, vectơ riêng, Giải tích và ứng dụng tính toán qua MATLAB.</p>
-                <div class="badge-row">
-                    <span>Ma trận</span>
-                    <span>Vectơ</span>
-                    <span>Trị riêng</span>
-                    <span>Giải tích</span>
-                    <span>MATLAB</span>
-                </div>
-            </article>
-        </div>
-    </section>
-
-    <section class="section-shell content-section" id="projects">
-        <div class="section-heading">
-            <p class="section-kicker">Dự án tiêu biểu</p>
-            <h2>Sản phẩm học tập có tính thực hành</h2>
-        </div>
-
-        <div class="projects-grid">
-            <article class="project-card">
-                <div class="project-meta">
-                    <span>Java OOP</span>
-                    <span>Console App</span>
-                </div>
-                <h3>Hệ thống Quản lý Sinh viên</h3>
-                <p>Ứng dụng console Java mô phỏng hệ thống quản lý đầy đủ chức năng CRUD; áp dụng triệt để kiến thức về kế thừa, interface và ArrayList.</p>
-            </article>
-
-            <article class="project-card">
-                <div class="project-meta">
-                    <span>Bash</span>
-                    <span>Automation</span>
-                </div>
-                <h3>Phân tích Log với AWK & Bash</h3>
-                <p>Script shell tự động quét và phân tích file log hệ thống: thống kê lượt truy cập, lọc mã lỗi, xuất báo cáo CSV và cấu hình cron job chạy định kỳ.</p>
-            </article>
-
-            <article class="project-card">
-                <div class="project-meta">
-                    <span>Math</span>
-                    <span>Matrix</span>
-                </div>
-                <h3>Trình tính toán Ma trận</h3>
-                <p>Chương trình thực hiện phép toán phức tạp: nhân ma trận, tìm ma trận nghịch đảo, tính trị riêng và vectơ riêng để minh họa ứng dụng toán máy tính.</p>
-            </article>
-        </div>
-    </section>
-
-    <section class="section-shell content-section" id="notes">
-        <div class="section-heading">
-            <p class="section-kicker">Blog học tập</p>
-            <h2>Ghi chú và bài viết ngắn</h2>
-        </div>
-
-        <div class="notes-list">
-            <article class="note-item">
-                <time datetime="2025-06-01">01/06/2025</time>
-                <h3>Hiểu về Tính đa hình trong Java OOP</h3>
-            </article>
-            <article class="note-item">
-                <time datetime="2025-05-20">20/05/2025</time>
-                <h3>AWK từ cơ bản đến xử lý file CSV phức tạp</h3>
-            </article>
-            <article class="note-item">
-                <time datetime="2025-05-05">05/05/2025</time>
-                <h3>Ý nghĩa hình học của trị riêng và vectơ riêng</h3>
-            </article>
-        </div>
-    </section>
-
-    <section class="section-shell content-section contact-section" id="contact">
-        <div class="section-heading">
-            <p class="section-kicker">Liên hệ</p>
-            <h2>Sẵn sàng trao đổi về học tập và dự án</h2>
-        </div>
-
-        <div class="contact-grid">
-            <div class="email-card">
-                <span>Email</span>
-                <a href="mailto:linhtltcs2@gmail.com" id="email-address">linhtltcs2@gmail.com</a>
-                <button class="copy-button" type="button" id="copy-email" data-copy="linhtltcs2@gmail.com">Copy</button>
-            </div>
-
-            <div class="social-links" aria-label="Mạng xã hội">
-                <a href="https://github.com/liviaisthebest911-alt" target="_blank" rel="noreferrer">GitHub</a>
-                <a href="#" aria-label="LinkedIn">LinkedIn</a>
-                <a href="https://www.facebook.com/linhtranlethao1167" aria-label="Facebook">Facebook</a>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer class="site-footer">
-    <p>Thiết kế & xây dựng bởi Olive June Math ©2026 | VNU-HUS</p>
-</footer>
-
-<script src="js/main.js"></script>
-</body>
-</html>
+    <article class="stat-card">
+        <strong>10+</strong>
+        <span>Bài tập và dự án nhỏ đã hoàn thành</span>
+    </article>
+</section>

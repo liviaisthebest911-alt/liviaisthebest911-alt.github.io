@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ page.description | default: site.description }}">
+    <title>{{ page.title }} | {{ site.title }}</title>
+    <link rel="stylesheet" href="{{ '/css/style.css' | relative_url }}">
+</head>
+<body>
+<header class="site-header" id="top">
+    <nav class="navbar" id="navbar" aria-label="Điều hướng chính">
+        <a href="{{ '/' | relative_url }}" class="brand" aria-label="Olive June Math">
+            <span class="brand-mark">OJM</span>
+            <span class="brand-text">Olive June Math</span>
+        </a>
+
+        <button class="nav-toggle" id="nav-toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="nav-links">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="nav-links" id="nav-links">
+            <a href="{{ '/' | relative_url }}">Trang chủ</a>
+            <a href="{{ '/about/' | relative_url }}">Giới thiệu</a>
+            <a href="{{ '/skills/' | relative_url }}">Kỹ năng</a>
+            <a href="{{ '/projects/' | relative_url }}">Dự án</a>
+            <a href="{{ '/blog/' | relative_url }}">Bài viết</a>
+            <a href="{{ '/cv/' | relative_url }}">CV</a>
+            <a href="{{ '/contact/' | relative_url }}">Liên hệ</a>
+        </div>
+    </nav>
+</header>
+
+<main>
+    {{ content }}
+</main>
+
+<footer class="site-footer">
+    <p>Thiết kế & xây dựng bởi Olive June Math ©2026 | VNU-HUS</p>
+</footer>
+
+<script src="{{ '/js/main.js' | relative_url }}"></script>
+</body>
+</html>
