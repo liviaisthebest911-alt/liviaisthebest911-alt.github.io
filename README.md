@@ -29,13 +29,31 @@ Không cần framework, package manager hoặc build tool.
 
 ```text
 .
-├── index.html
+├── .idea/
+│   └── ...
+├── _layouts/
+│   └── default.html
+├── assets/
+│   ├── images/
+│   ├── icons/
+│   └── ...
 ├── css/
-│   └── style.css
+│   ├── style.css
+│   └── ...
 ├── js/
-│   └── main.js
-└── assets/
-    └── portfolio-mark.svg
+│   ├── main.js
+│   └── ...
+├── .gitignore
+├── README.md
+├── _config.yml
+├── about.html
+├── blog.html
+├── contact.html
+├── cv.html
+├── index.html
+├── olivejunemath.github.io.iml
+├── projects.html
+└── skills.html
 ```
 
 ## Chạy local
