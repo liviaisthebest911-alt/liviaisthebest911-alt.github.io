@@ -18,7 +18,7 @@ Không cần framework, package manager hoặc build tool.
 ## Tính năng chính
 
 - Giao diện CV trực tuyến hiện đại, tối giản và có vibe developer portfolio.
-- Header có terminal card tinh tế, không dùng các ký tự phân tách thủ công kiểu `//`.
+- Header có terminal card tinh tế
 - Stats, skills, projects, notes và contact được tổ chức thành card/grid rõ ràng.
 - Nút Copy email nhanh.
 - Nút Tải CV / In PDF dùng `window.print()`.
