@@ -1,48 +1,381 @@
----
-layout: default
-title: Trang chủ
-permalink: /
----
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio CV của Olive June Math – Sinh viên Khoa học Máy tính tại ĐH Khoa học Tự nhiên, ĐHQGHN." />
+  <title>Olive June Math · Portfolio</title>
 
-<section class="hero section-shell">
-    <div class="hero-content">
-        <p class="eyebrow">Portfolio CV trực tuyến</p>
+  <!-- Google Fonts: Space Grotesk (display) + JetBrains Mono (code) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
 
-        <h1>Olive June Math</h1>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
 
-        <p class="hero-lead">
-            Sinh viên năm thứ nhất ngành Khoa học Máy tính và Thông Tin tại Trường Đại học Khoa học Tự nhiên - Đại học Quốc gia Hà Nội.
-        </p>
+<body>
 
-        <p class="hero-summary">
-            Đang học tập và tích cực xây dựng portfolio sản phẩm, tập trung vào nền tảng lập trình, kiến trúc hệ thống và toán học ứng dụng.
-        </p>
+  <!-- =============================================
+       NAVBAR – điều hướng cố định ở trên cùng
+  ============================================== -->
+  <header class="site-header">
+    <nav class="navbar" role="navigation" aria-label="Điều hướng chính">
 
-        <div class="hero-actions">
-            <a class="btn btn-primary" href="{{ '/cv/' | relative_url }}">
-                Xem CV
+      <!-- Logo thương hiệu -->
+      <a href="/" class="brand" aria-label="Trang chủ">
+        <span class="brand-mark" aria-hidden="true">OJ</span>
+        <span class="brand-text">Olive June Math</span>
+      </a>
+
+      <!-- Các liên kết điều hướng (desktop) -->
+      <div class="nav-links" id="navLinks">
+        <a href="#about">Giới thiệu</a>
+        <a href="#skills">Kỹ năng</a>
+        <a href="#projects">Dự án</a>
+        <a href="#contact">Liên hệ</a>
+        <a href="cv/index.html" class="btn-nav-cta">Xem CV</a>
+      </div>
+
+      <!-- Nút hamburger cho di động -->
+      <button class="nav-toggle" id="navToggle" aria-label="Mở menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- =============================================
+         HERO – màn hình chào đón đầu tiên
+    ============================================== -->
+    <section class="hero" aria-label="Giới thiệu">
+      <div class="section-shell hero-inner">
+
+        <!-- Cột trái: nội dung văn bản -->
+        <div class="hero-content">
+          <p class="eyebrow" aria-label="Nhãn phân loại">Portfolio · CV trực tuyến</p>
+
+          <h1>
+            Olive<br />
+            <span class="h1-accent">June Math</span>
+          </h1>
+
+          <p class="hero-lead">
+            Sinh viên năm nhất ngành <strong>Khoa học Máy tính &amp; Thông Tin</strong>
+            tại Trường ĐH Khoa học Tự nhiên – ĐHQG Hà Nội.
+          </p>
+
+          <p class="hero-summary">
+            Tập trung xây dựng nền tảng lập trình vững chắc, kiến trúc hệ thống
+            và toán học ứng dụng – từng bước một, mỗi ngày.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="cv/index.html">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+              Xem CV đầy đủ
             </a>
-
-            <a class="btn btn-ghost" href="{{ '/projects/' | relative_url }}">
-                Xem dự án
+            <a class="btn btn-ghost" href="#projects">
+              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+              Khám phá dự án
             </a>
+          </div>
         </div>
+
+        <!-- Cột phải: terminal minh họa với hiệu ứng gõ chữ -->
+        <div class="hero-panel" aria-hidden="true">
+
+          <!-- Thanh tiêu đề giả lập macOS terminal -->
+          <div class="terminal-topbar">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+            <span class="terminal-title">olive@portfolio:~</span>
+          </div>
+
+          <!-- Nội dung terminal: sẽ được điền bởi JS -->
+          <div class="terminal-body" id="terminalBody">
+            <div class="terminal-lines" id="terminalLines"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         STATS – số liệu nổi bật
+    ============================================== -->
+    <section class="stats-section section-shell" aria-label="Chỉ số nổi bật">
+      <div class="stats">
+        <article class="stat-card fade-in">
+          <strong>1+</strong>
+          <span>Năm học chính quy</span>
+        </article>
+        <article class="stat-card fade-in">
+          <strong>3</strong>
+          <span>Lĩnh vực kỹ năng cốt lõi</span>
+        </article>
+        <article class="stat-card fade-in">
+          <strong>10+</strong>
+          <span>Bài tập &amp; dự án nhỏ</span>
+        </article>
+      </div>
+    </section>
+
+    <!-- =============================================
+         ABOUT – giới thiệu bản thân
+    ============================================== -->
+    <section id="about" class="content-section" aria-labelledby="about-heading">
+      <div class="section-shell">
+
+        <div class="section-heading fade-in">
+          <p class="section-kicker">// 01 · Giới thiệu</p>
+          <h2 id="about-heading">Về tôi</h2>
+        </div>
+
+        <div class="about-grid">
+
+          <!-- Mô tả dài -->
+          <div class="text-stack fade-in">
+            <p>
+              Tôi là <strong>Olive June Math</strong>, sinh viên năm nhất ngành Khoa học Máy tính
+              tại Đại học Khoa học Tự nhiên – ĐHQG Hà Nội. Tôi đặc biệt yêu thích
+              toán rời rạc, lý thuyết thuật toán và cách những khái niệm trừu tượng
+              trở thành phần mềm thực tế.
+            </p>
+            <p>
+              Hiện tại tôi đang xây dựng nền tảng qua các môn học cốt lõi, đồng thời
+              tự học thêm về lập trình web và khoa học dữ liệu. Mục tiêu của tôi là
+              phát triển thành một kỹ sư phần mềm có tư duy phân tích sâu và kỹ năng
+              giải quyết vấn đề tốt.
+            </p>
+            <p>
+              Ngoài việc học, tôi thích đọc sách về toán học, đóng góp vào các dự án
+              mã nguồn mở nhỏ và khám phá các chủ đề về trí tuệ nhân tạo.
+            </p>
+          </div>
+
+          <!-- Thẻ thông tin nhanh -->
+          <aside class="profile-card fade-in" aria-label="Thông tin cá nhân">
+            <dl>
+              <div>
+                <dt>Vị trí</dt>
+                <dd>Hà Nội, Việt Nam</dd>
+              </div>
+              <div>
+                <dt>Trường</dt>
+                <dd>ĐH Khoa học Tự nhiên – ĐHQGHN</dd>
+              </div>
+              <div>
+                <dt>Ngành học</dt>
+                <dd>Khoa học Máy tính &amp; Thông Tin</dd>
+              </div>
+              <div>
+                <dt>Năm học</dt>
+                <dd>Năm 1 · 2024 – 2028</dd>
+              </div>
+              <div>
+                <dt>Ngôn ngữ</dt>
+                <dd>Tiếng Việt · Tiếng Anh (B1)</dd>
+              </div>
+            </dl>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         SKILLS – các kỹ năng kỹ thuật
+    ============================================== -->
+    <section id="skills" class="content-section" aria-labelledby="skills-heading">
+      <div class="section-shell">
+
+        <div class="section-heading fade-in">
+          <p class="section-kicker">// 02 · Kỹ năng</p>
+          <h2 id="skills-heading">Lĩnh vực<br/>đang phát triển</h2>
+        </div>
+
+        <div class="skills-grid">
+
+          <article class="skill-card fade-in" tabindex="0">
+            <div class="card-icon" aria-hidden="true">01</div>
+            <h3>Lập trình cơ bản</h3>
+            <p>
+              Thành thạo Python và C++ ở mức nền tảng. Hiểu cấu trúc dữ liệu,
+              giải thuật sắp xếp và tìm kiếm, đệ quy và hướng đối tượng.
+            </p>
+            <div class="badge-row" aria-label="Công nghệ">
+              <span>Python</span>
+              <span>C++</span>
+              <span>OOP</span>
+            </div>
+          </article>
+
+          <article class="skill-card fade-in" tabindex="0">
+            <div class="card-icon" aria-hidden="true">02</div>
+            <h3>Toán học ứng dụng</h3>
+            <p>
+              Đang học đại số tuyến tính, giải tích và toán rời rạc – nền tảng
+              không thể thiếu cho thuật toán và machine learning sau này.
+            </p>
+            <div class="badge-row" aria-label="Công nghệ">
+              <span>Đại số TT</span>
+              <span>Giải tích</span>
+              <span>Toán rời rạc</span>
+            </div>
+          </article>
+
+          <article class="skill-card fade-in" tabindex="0">
+            <div class="card-icon" aria-hidden="true">03</div>
+            <h3>Phát triển Web</h3>
+            <p>
+              Tự học HTML, CSS và JavaScript để xây dựng portfolio này và
+              các trang web tĩnh đơn giản. Đang tìm hiểu React.
+            </p>
+            <div class="badge-row" aria-label="Công nghệ">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         PROJECTS – dự án tiêu biểu
+    ============================================== -->
+    <section id="projects" class="content-section" aria-labelledby="projects-heading">
+      <div class="section-shell">
+
+        <div class="section-heading fade-in">
+          <p class="section-kicker">// 03 · Dự án</p>
+          <h2 id="projects-heading">Những gì<br/>tôi đã xây dựng</h2>
+        </div>
+
+        <div class="projects-grid">
+
+          <article class="project-card fade-in" tabindex="0">
+            <div class="project-meta">
+              <span>Python</span>
+              <span>Thuật toán</span>
+              <span>2024</span>
+            </div>
+            <h3>Bài tập Cấu trúc Dữ liệu &amp; Giải thuật</h3>
+            <p>
+              Tập hợp các bài tập cài đặt cấu trúc dữ liệu cơ bản (danh sách liên kết,
+              cây nhị phân, đồ thị) và các thuật toán sắp xếp bằng Python/C++.
+            </p>
+            <a href="projects/index.html" class="btn btn-ghost btn-sm" aria-label="Xem chi tiết dự án CTDL&GT">
+              Xem chi tiết →
+            </a>
+          </article>
+
+          <article class="project-card fade-in" tabindex="0">
+            <div class="project-meta">
+              <span>HTML · CSS · JS</span>
+              <span>Web</span>
+              <span>2025</span>
+            </div>
+            <h3>Portfolio Website cá nhân</h3>
+            <p>
+              Trang web portfolio này – được thiết kế từ đầu, host trên GitHub Pages.
+              Áp dụng responsive design và CSS animations thuần không dùng thư viện.
+            </p>
+            <a href="https://github.com/liviaisthebest911-alt/liviaisthebest911-alt.github.io"
+               class="btn btn-ghost btn-sm"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Xem source code trên GitHub">
+              GitHub →
+            </a>
+          </article>
+
+          <article class="project-card project-card--coming fade-in" tabindex="0" aria-label="Dự án sắp ra mắt">
+            <div class="project-meta">
+              <span>Sắp ra mắt</span>
+            </div>
+            <h3>Dự án tiếp theo</h3>
+            <p>
+              Đang lên ý tưởng cho dự án về trực quan hóa thuật toán sắp xếp
+              bằng JavaScript canvas. Dự kiến hoàn thành Q3/2025.
+            </p>
+            <span class="coming-badge" aria-hidden="true">Đang phát triển…</span>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =============================================
+         CONTACT – liên hệ
+    ============================================== -->
+    <section id="contact" class="content-section contact-section" aria-labelledby="contact-heading">
+      <div class="section-shell">
+
+        <div class="section-heading fade-in">
+          <p class="section-kicker">// 04 · Liên hệ</p>
+          <h2 id="contact-heading">Kết nối<br/>với tôi</h2>
+        </div>
+
+        <div class="contact-grid">
+
+          <!-- Thẻ email + nút sao chép -->
+          <div class="email-card fade-in">
+            <span class="email-label">Địa chỉ email</span>
+            <a href="mailto:olive.june.math@example.com" id="emailLink">
+              olive.june.math@example.com
+            </a>
+            <button class="copy-button" id="copyBtn" aria-label="Sao chép địa chỉ email">
+              Sao chép
+            </button>
+          </div>
+
+          <!-- Các liên kết mạng xã hội -->
+          <nav class="social-links fade-in" aria-label="Mạng xã hội">
+            <a href="https://github.com/liviaisthebest911-alt"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="GitHub của tôi">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+              </svg>
+              GitHub
+            </a>
+            <a href="https://linkedin.com"
+               target="_blank" rel="noopener noreferrer"
+               aria-label="LinkedIn của tôi">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+              LinkedIn
+            </a>
+          </nav>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =============================================
+       FOOTER – chân trang
+  ============================================== -->
+  <footer class="site-footer">
+    <div class="section-shell">
+      <p>
+        <span class="footer-mono">Được xây dựng bằng HTML · CSS · JS</span>
+        &nbsp;·&nbsp;
+        <span class="footer-mono">© 2025 Olive June Math</span>
+      </p>
     </div>
-</section>
+  </footer>
 
-<section class="stats section-shell" aria-label="Chỉ số nổi bật">
-    <article class="stat-card">
-        <strong>1+</strong>
-        <span>Năm kinh nghiệm học tập chính quy</span>
-    </article>
+  <!-- JavaScript chính -->
+  <script src="js/main.js"></script>
 
-    <article class="stat-card">
-        <strong>3</strong>
-        <span>Lĩnh vực kỹ năng chính đang phát triển</span>
-    </article>
-
-    <article class="stat-card">
-        <strong>10+</strong>
-        <span>Bài tập và dự án nhỏ đã hoàn thành</span>
-    </article>
-</section>
+</body>
+</html>
