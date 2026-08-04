@@ -1,0 +1,1148 @@
+/* =============================================================
+   PORTFOLIO – Olive June Math
+   style.css · Phiên bản tối ưu hóa
+   Tác giả: Olive June Math
+   Mô tả: Stylesheet chính cho trang portfolio cá nhân.
+           Sử dụng CSS custom properties (biến) để dễ tùy chỉnh.
+============================================================= */
+
+/* ── Google Fonts ─────────────────────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
+
+
+/* ══════════════════════════════════════════════════════════
+   1. BIẾN CSS (DESIGN TOKENS)
+   Thay đổi màu sắc, kích thước tại đây sẽ áp dụng toàn trang
+══════════════════════════════════════════════════════════ */
+:root {
+  color-scheme: dark;
+
+  /* ── Màu nền ── */
+  --bg:           #080c14;
+  --bg-soft:      #0d1321;
+  --surface:      rgba(13, 19, 33, 0.80);
+
+  /* ── Đường viền ── */
+  --line:         rgba(148, 163, 184, 0.14);
+  --line-strong:  rgba(148, 163, 184, 0.28);
+
+  /* ── Màu chữ ── */
+  --text:         #f0f4ff;
+  --muted:        #b8c5d6;
+  --subtle:       #6b7c93;
+
+  /* ── Màu nhấn (accent) – gradient violet → cyan ── */
+  --accent-1:     #7c5cfc;   /* violet */
+  --accent-2:     #22d3ee;   /* cyan   */
+  --accent-mid:   #9d7afc;   /* tím trung gian để dùng đơn lẻ */
+
+  /* ── Màu trạng thái ── */
+  --amber:        #fbbf24;
+  --rose:         #fb7185;
+
+  /* ── Bóng đổ ── */
+  --shadow-sm:    0 4px 20px rgba(0, 0, 0, 0.30);
+  --shadow-md:    0 14px 48px rgba(0, 0, 0, 0.40);
+  --shadow-lg:    0 28px 80px rgba(0, 0, 0, 0.50);
+
+  /* ── Bo góc ── */
+  --radius-lg:    28px;
+  --radius-md:    18px;
+  --radius-sm:    12px;
+  --radius-pill:  999px;
+
+  /* ── Chiều rộng nội dung tối đa ── */
+  --max-width:    1100px;
+
+  /* ── Thời gian chuyển động ── */
+  --ease:         180ms ease;
+  --ease-out:     280ms cubic-bezier(.16,1,.3,1);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   2. RESET & CƠ SỞ
+   Xóa kiểu mặc định của trình duyệt, đặt nền tảng chung
+══════════════════════════════════════════════════════════ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: "Space Grotesk", system-ui, -apple-system, sans-serif;
+  font-size: 1rem;
+  line-height: 1.72;
+  color: var(--text);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--bg);
+
+  /* Nền gradient nhiều lớp: tạo chiều sâu không gian */
+  background-image:
+    radial-gradient(ellipse 80% 50% at 10% 0%, rgba(124, 92, 252, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 90% 10%, rgba(34, 211, 238, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 60% at 50% 100%, rgba(124, 92, 252, 0.07) 0%, transparent 70%);
+}
+
+/* Lưới nền mờ phủ toàn trang (pseudo-element) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 52px 52px;
+  /* Dần biến mất ở phần dưới để không làm loãng nội dung */
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 65%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 65%);
+}
+
+/* Đảm bảo nội dung nằm trên lớp nền */
+body > * { position: relative; z-index: 1; }
+
+a       { color: inherit; text-decoration: none; }
+img     { display: block; max-width: 100%; }
+button  { cursor: pointer; font: inherit; border: none; }
+h1,h2,h3,h4 { line-height: 1.15; font-weight: 700; }
+
+
+/* ══════════════════════════════════════════════════════════
+   3. HELPER CLASSES – tiện ích dùng chung
+══════════════════════════════════════════════════════════ */
+
+/* Bọc nội dung vào chiều rộng tối đa, căn giữa */
+.section-shell {
+  width: min(var(--max-width), calc(100% - 40px));
+  margin-inline: auto;
+}
+
+/* Nhãn section nhỏ phong cách code (// 01 · ...) */
+.section-kicker {
+  display: block;
+  margin-bottom: 10px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--accent-mid);
+  text-transform: uppercase;
+}
+
+/* Nhãn eyebrow ở hero */
+.eyebrow {
+  display: block;
+  margin-bottom: 14px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--accent-mid);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   4. HIỆU ỨNG CUỘN (SCROLL ANIMATIONS)
+   Lớp fade-in được thêm/xóa bởi Intersection Observer trong JS
+══════════════════════════════════════════════════════════ */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+}
+
+/* Khi phần tử cuộn vào vùng nhìn thấy */
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Trì hoãn cascade cho các phần tử liên tiếp */
+.fade-in:nth-child(2) { transition-delay: 0.08s; }
+.fade-in:nth-child(3) { transition-delay: 0.16s; }
+.fade-in:nth-child(4) { transition-delay: 0.24s; }
+
+
+/* ══════════════════════════════════════════════════════════
+   5. NAVBAR – thanh điều hướng
+══════════════════════════════════════════════════════════ */
+.site-header {
+  position: relative;
+  z-index: 30;
+}
+
+.navbar {
+  position: sticky;
+  top: 14px;
+  width: min(var(--max-width), calc(100% - 40px));
+  margin: 14px auto 0;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 10px 8px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-pill);
+  background: rgba(8, 12, 20, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.30);
+}
+
+/* ── Logo / Brand ── */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.brand-mark {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  /* Gradient accent làm logo */
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: #fff;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  font-weight: 600;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  color: var(--text);
+}
+
+/* ── Links điều hướng ── */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-links a {
+  padding: 8px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition: color var(--ease), background var(--ease);
+}
+
+.nav-links a:hover {
+  color: var(--text);
+  background: rgba(148, 163, 184, 0.10);
+}
+
+/* Nút CTA nhỏ trong navbar */
+.btn-nav-cta {
+  margin-left: 8px;
+  padding: 8px 16px !important;
+  border-radius: var(--radius-pill) !important;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  color: #fff !important;
+  font-weight: 600 !important;
+  font-size: 0.85rem !important;
+  transition: opacity var(--ease), transform var(--ease) !important;
+}
+
+.btn-nav-cta:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+  background: unset !important; /* Không cần đổi màu hover riêng */
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2)) !important;
+}
+
+/* ── Nút hamburger (hiện trên mobile) ── */
+.nav-toggle {
+  display: none;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--line-strong);
+  background: rgba(13, 19, 33, 0.80);
+  color: var(--text);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 5px;
+  transition: background var(--ease);
+}
+
+.nav-toggle:hover { background: rgba(148, 163, 184, 0.12); }
+
+.nav-toggle span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform var(--ease), opacity var(--ease);
+}
+
+/* Hoạt ảnh chuyển thành dấu × khi mở menu */
+.nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+/* ══════════════════════════════════════════════════════════
+   6. HERO – phần đầu trang
+══════════════════════════════════════════════════════════ */
+.hero {
+  padding-block: 80px 64px;
+}
+
+.hero-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+  gap: 48px;
+  align-items: center;
+  min-height: calc(100svh - 120px);
+}
+
+/* ── Tiêu đề H1 ── */
+h1 {
+  font-size: clamp(3rem, 7.5vw, 6rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.94;
+  color: var(--text);
+  margin-bottom: 22px;
+}
+
+/* Phần tên có màu gradient */
+.h1-accent {
+  background: linear-gradient(135deg, var(--accent-1) 20%, var(--accent-2) 80%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-lead {
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+  color: var(--text);
+  line-height: 1.65;
+  margin-bottom: 14px;
+  max-width: 560px;
+}
+
+.hero-lead strong { color: var(--accent-2); font-weight: 600; }
+
+.hero-summary {
+  font-size: 0.98rem;
+  color: var(--muted);
+  max-width: 520px;
+  margin-bottom: 32px;
+  line-height: 1.75;
+}
+
+/* ── Nút hành động ── */
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ── Terminal panel (cột phải) ── */
+.hero-panel {
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line-strong);
+  background: rgba(8, 12, 22, 0.88);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  /* Hiệu ứng shimmer viền accent rất nhẹ */
+  box-shadow:
+    0 0 0 1px rgba(124, 92, 252, 0.20),
+    var(--shadow-lg);
+}
+
+/* Thanh tiêu đề terminal giả macOS */
+.terminal-topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(13, 19, 33, 0.92);
+}
+
+.dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+}
+
+.dot-red    { background: #ff5f57; }
+.dot-yellow { background: #febc2e; }
+.dot-green  { background: #28c840; }
+
+.terminal-title {
+  margin-left: 8px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  color: var(--subtle);
+}
+
+/* Vùng nội dung terminal */
+.terminal-body {
+  padding: 20px;
+  min-height: 260px;
+}
+
+.terminal-lines {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.84rem;
+  line-height: 1.9;
+  color: var(--muted);
+}
+
+/* Cursor nhấp nháy ở cuối dòng đang gõ */
+.t-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 1em;
+  background: var(--accent-mid);
+  vertical-align: text-bottom;
+  margin-left: 1px;
+  border-radius: 1px;
+  animation: blink-cursor 1s step-end infinite;
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* Màu cú pháp trong terminal */
+.t-prompt  { color: var(--accent-mid); }
+.t-cmd     { color: var(--text); }
+.t-key     { color: #7dd3fc; } /* xanh dương nhạt */
+.t-val     { color: #86efac; } /* xanh lá nhạt    */
+.t-comment { color: var(--subtle); font-style: italic; }
+.t-error   { color: var(--rose); }
+
+
+/* ══════════════════════════════════════════════════════════
+   7. CÁC NÚT (BUTTONS)
+══════════════════════════════════════════════════════════ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 20px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    transform var(--ease),
+    box-shadow var(--ease),
+    opacity var(--ease),
+    background var(--ease),
+    border-color var(--ease);
+  white-space: nowrap;
+}
+
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0); }
+
+/* Nút chính – gradient accent */
+.btn-primary {
+  background: linear-gradient(135deg, var(--accent-1) 0%, var(--accent-2) 100%);
+  color: #fff;
+  box-shadow: 0 8px 28px rgba(124, 92, 252, 0.36);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 14px 36px rgba(124, 92, 252, 0.48);
+}
+
+/* Nút phụ – trong suốt */
+.btn-ghost {
+  background: rgba(148, 163, 184, 0.08);
+  border-color: var(--line-strong);
+  color: var(--muted);
+}
+
+.btn-ghost:hover {
+  background: rgba(148, 163, 184, 0.14);
+  color: var(--text);
+  border-color: rgba(148, 163, 184, 0.40);
+}
+
+/* Biến thể nút nhỏ cho project cards */
+.btn-sm {
+  min-height: 36px;
+  padding: 0 14px;
+  font-size: 0.82rem;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   8. STATS – số liệu nổi bật
+══════════════════════════════════════════════════════════ */
+.stats-section {
+  padding-block: 0 72px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.stat-card {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 28px 24px;
+  transition: transform var(--ease), border-color var(--ease), box-shadow var(--ease);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(124, 92, 252, 0.30);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Con số lớn in đậm với gradient */
+.stat-card strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: clamp(2.4rem, 5vw, 3.6rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.stat-card span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   9. CÁC SECTION NỘI DUNG CHUNG
+══════════════════════════════════════════════════════════ */
+.content-section {
+  padding-block: 80px;
+  border-top: 1px solid var(--line);
+}
+
+/* Tiêu đề section: nhãn + h2 xếp ngang */
+.section-heading {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 16px 32px;
+  align-items: start;
+  margin-bottom: 40px;
+}
+
+/* Nhãn section ở cột trái */
+.section-heading .section-kicker {
+  padding-top: 8px; /* Căn chỉnh với baseline h2 */
+}
+
+.section-heading h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  letter-spacing: -0.03em;
+  color: var(--text);
+  grid-column: 2;
+  margin: 0;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   10. ABOUT – giới thiệu bản thân
+══════════════════════════════════════════════════════════ */
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 28px;
+  align-items: start;
+}
+
+.text-stack {
+  color: var(--muted);
+  font-size: 1.02rem;
+  line-height: 1.8;
+}
+
+.text-stack p { margin-bottom: 1.2em; }
+.text-stack p:last-child { margin-bottom: 0; }
+.text-stack strong { color: var(--text); font-weight: 600; }
+
+/* Thẻ thông tin cá nhân (dl/dt/dd) */
+.profile-card {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 24px;
+}
+
+.profile-card dl { margin: 0; }
+
+.profile-card > dl > div {
+  padding-block: 13px;
+  border-bottom: 1px solid var(--line);
+}
+
+.profile-card > dl > div:first-child { padding-top: 0; }
+.profile-card > dl > div:last-child  { padding-bottom: 0; border-bottom: 0; }
+
+.profile-card dt {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--subtle);
+  margin-bottom: 3px;
+}
+
+.profile-card dd {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   11. SKILLS – thẻ kỹ năng
+══════════════════════════════════════════════════════════ */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.skill-card {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 26px;
+  transition: transform var(--ease-out), border-color var(--ease), box-shadow var(--ease-out);
+  cursor: default;
+  outline-offset: 3px;
+}
+
+.skill-card:hover,
+.skill-card:focus-visible {
+  transform: translateY(-6px);
+  border-color: rgba(124, 92, 252, 0.38);
+  box-shadow: 0 20px 54px rgba(124, 92, 252, 0.14);
+}
+
+/* Số thứ tự / icon */
+.card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(124, 92, 252, 0.12);
+  border: 1px solid rgba(124, 92, 252, 0.20);
+  color: var(--accent-mid);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.skill-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.skill-card p {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+/* Hàng badge công nghệ */
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.badge-row span {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(148, 163, 184, 0.20);
+  background: rgba(148, 163, 184, 0.07);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.70rem;
+  font-weight: 500;
+  color: #bfdbfe; /* xanh dương nhạt */
+  white-space: nowrap;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   12. PROJECTS – thẻ dự án
+══════════════════════════════════════════════════════════ */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.project-card {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 26px;
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--ease-out), border-color var(--ease), box-shadow var(--ease-out);
+}
+
+.project-card:hover,
+.project-card:focus-visible {
+  transform: translateY(-6px);
+  border-color: rgba(34, 211, 238, 0.30);
+  box-shadow: 0 20px 54px rgba(34, 211, 238, 0.10);
+}
+
+/* Thẻ "Coming soon" – kiểu dáng đặc biệt */
+.project-card--coming {
+  opacity: 0.65;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(148, 163, 184, 0.02),
+    rgba(148, 163, 184, 0.02) 4px,
+    transparent 4px,
+    transparent 18px
+  );
+}
+
+.project-card--coming:hover {
+  transform: none;
+  border-color: var(--line);
+  box-shadow: none;
+}
+
+/* Hàng metadata (ngôn ngữ, năm, …) */
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.project-meta span {
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(148, 163, 184, 0.20);
+  background: rgba(148, 163, 184, 0.07);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.70rem;
+  font-weight: 500;
+  color: #a5f3fc; /* cyan nhạt */
+}
+
+/* Dòng đầu tiên có màu accent riêng */
+.project-meta span:first-child {
+  border-color: rgba(34, 211, 238, 0.30);
+  color: #a5f3fc;
+}
+
+.project-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.project-card p {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.7;
+  flex: 1; /* Đẩy nút xuống đáy */
+  margin-bottom: 20px;
+}
+
+.project-card .btn { align-self: flex-start; margin-top: auto; }
+
+/* Badge "Đang phát triển" */
+.coming-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px dashed rgba(124, 92, 252, 0.40);
+  color: var(--accent-mid);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  margin-top: auto;
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   13. CONTACT – liên hệ
+══════════════════════════════════════════════════════════ */
+.contact-section { border-bottom: 1px solid var(--line); }
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: start;
+}
+
+/* Thẻ email */
+.email-card {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 28px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  gap: 10px 16px;
+  align-items: center;
+}
+
+.email-label {
+  grid-column: 1 / -1;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--subtle);
+}
+
+.email-card a {
+  font-size: clamp(1rem, 2.2vw, 1.45rem);
+  font-weight: 700;
+  color: var(--text);
+  overflow-wrap: anywhere;
+  transition: color var(--ease);
+}
+
+.email-card a:hover { color: var(--accent-2); }
+
+/* Nút sao chép email */
+.copy-button {
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(34, 211, 238, 0.30);
+  background: rgba(34, 211, 238, 0.10);
+  color: var(--accent-2);
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: background var(--ease), transform var(--ease);
+}
+
+.copy-button:hover { background: rgba(34, 211, 238, 0.18); transform: translateY(-1px); }
+
+/* Trạng thái sau khi sao chép thành công */
+.copy-button.copied {
+  border-color: rgba(134, 239, 172, 0.40);
+  background: rgba(134, 239, 172, 0.12);
+  color: #86efac;
+}
+
+/* Lưới mạng xã hội (2 cột) */
+.social-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  min-width: 200px;
+}
+
+.social-links a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 90px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: rgba(13, 19, 33, 0.60);
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: transform var(--ease), border-color var(--ease), color var(--ease), background var(--ease);
+}
+
+.social-links a:hover {
+  transform: translateY(-4px);
+  border-color: rgba(124, 92, 252, 0.38);
+  color: var(--text);
+  background: rgba(124, 92, 252, 0.08);
+}
+
+.social-links svg { flex-shrink: 0; }
+
+
+/* ══════════════════════════════════════════════════════════
+   14. FOOTER – chân trang
+══════════════════════════════════════════════════════════ */
+.site-footer {
+  padding-block: 24px 40px;
+  text-align: center;
+}
+
+.footer-mono {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.78rem;
+  color: var(--subtle);
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   15. RESPONSIVE – thiết bị di động & máy tính bảng
+══════════════════════════════════════════════════════════ */
+
+/* ── Tablet: ≤ 920px ── */
+@media (max-width: 920px) {
+
+  /* Navbar: chuyển sang dạng bảng trắng thả xuống */
+  .navbar {
+    border-radius: 22px;
+    align-items: flex-start;
+    padding: 10px;
+    flex-wrap: wrap;
+  }
+
+  .nav-toggle {
+    display: flex; /* Hiện nút hamburger */
+  }
+
+  .nav-links {
+    /* Ẩn mặc định, trượt xuống khi mở */
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: 0;
+    display: grid;
+    gap: 4px;
+    padding: 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: 20px;
+    background: rgba(8, 12, 20, 0.96);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: var(--shadow-md);
+    /* Trạng thái đóng */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition: opacity var(--ease), transform var(--ease);
+  }
+
+  /* Trạng thái mở (class .open được thêm bởi JS) */
+  .nav-links.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .nav-links a { padding: 11px 14px; }
+  .btn-nav-cta { margin-left: 0 !important; }
+
+  /* Hero chuyển sang 1 cột */
+  .hero-inner {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: 36px;
+  }
+
+  .hero { padding-block: 64px 48px; }
+
+  /* Các grid chuyển về 1 cột */
+  .stats       { grid-template-columns: 1fr; }
+  .about-grid  { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .contact-grid  { grid-template-columns: 1fr; }
+
+  .social-links { grid-template-columns: repeat(2, 1fr); min-width: 0; }
+
+  /* Section heading trở về 1 cột */
+  .section-heading {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .section-heading h2 { grid-column: 1; }
+}
+
+/* ── Mobile: ≤ 560px ── */
+@media (max-width: 560px) {
+
+  :root { --radius-lg: 22px; --radius-md: 16px; }
+
+  .section-shell,
+  .navbar { width: min(100% - 24px, var(--max-width)); }
+
+  /* Ẩn tên thương hiệu, chỉ giữ logo */
+  .brand-text { display: none; }
+
+  h1 { letter-spacing: -0.04em; }
+
+  /* Nút hero xếp dọc chiếm toàn chiều rộng */
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .btn { width: 100%; justify-content: center; }
+
+  .content-section { padding-block: 56px; }
+
+  .stats-section { padding-bottom: 56px; }
+
+  .stat-card,
+  .skill-card,
+  .project-card,
+  .profile-card { padding: 20px; }
+
+  .email-card { grid-template-columns: 1fr; }
+  .copy-button { justify-self: start; }
+
+  .social-links { grid-template-columns: 1fr; }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   16. ACCESSIBILITY – khả năng tiếp cận
+══════════════════════════════════════════════════════════ */
+
+/* Hiển thị vùng focus rõ ràng khi điều hướng bằng bàn phím */
+:focus-visible {
+  outline: 2px solid var(--accent-mid);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Giảm chuyển động cho người dùng cài đặt prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Hiển thị ngay phần tử thay vì chờ animation */
+  .fade-in { opacity: 1; transform: none; }
+}
+
+
+/* ══════════════════════════════════════════════════════════
+   17. IN ẤN – @media print
+   Tối ưu giao diện khi người dùng in trang (hoặc xuất PDF)
+══════════════════════════════════════════════════════════ */
+@media print {
+  @page { size: A4; margin: 14mm; }
+
+  :root {
+    color-scheme: light;
+    --bg:      #ffffff;
+    --surface: #ffffff;
+    --text:    #18181b;
+    --muted:   #3f3f46;
+    --subtle:  #71717a;
+    --line:    #d4d4d8;
+    --accent-1: #4f46e5;
+    --accent-2: #0891b2;
+    --accent-mid: #4f46e5;
+  }
+
+  * { box-shadow: none !important; text-shadow: none !important; }
+
+  body { background: #ffffff !important; font-size: 11px; line-height: 1.45; }
+
+  body::before,
+  .navbar,
+  .hero-panel,
+  .hero-actions,
+  .copy-button,
+  .social-links { display: none !important; }
+
+  .section-shell { width: 100%; margin: 0; }
+
+  .hero { padding: 0 0 10mm; }
+  .hero-inner { display: block; min-height: 0; }
+
+  h1 { font-size: 2.5rem; line-height: 1.1; color: #18181b; }
+  .h1-accent { -webkit-text-fill-color: #4f46e5; }
+
+  .stats { grid-template-columns: repeat(3,1fr); gap: 6px; margin-bottom: 8mm; }
+  .stat-card { min-height: 0; padding: 8px 10px; break-inside: avoid; }
+  .stat-card strong { font-size: 1.6rem; -webkit-text-fill-color: #4f46e5; }
+
+  .content-section { padding-block: 5mm; border-top: 1px solid #d4d4d8; break-inside: avoid; }
+  .section-heading { display: block; margin-bottom: 6px; }
+  .section-heading h2 { font-size: 1.4rem; color: #18181b; }
+
+  .about-grid,
+  .skills-grid,
+  .projects-grid { grid-template-columns: 1fr; gap: 6px; }
+
+  .skill-card,
+  .project-card,
+  .profile-card { padding: 10px 12px; break-inside: avoid; border: 1px solid #d4d4d8; background: #fff; }
+
+  .card-icon { display: none; }
+
+  .contact-grid { display: block; }
+  .email-card { display: block; padding: 10px 12px; background: #fff; border: 1px solid #d4d4d8; }
+  .email-card a { font-size: 1rem; color: #18181b; }
+
+  .site-footer { padding-top: 5mm; text-align: left; }
+}
