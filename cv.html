@@ -1,24 +1,579 @@
----
-layout: default
-title: CV
-permalink: /cv/
----
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>CV — Gia sư Toán</title>
+    <style>
+        /* ── FONTS ─────────────────────────────────────────── */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
-<section class="section-shell content-section">
-    <div class="section-heading">
-        <p class="section-kicker">CV</p>
-        <h1>Olive June Math</h1>
+        /* ── TOKENS (đổi màu tại đây) ──────────────────────── */
+        :root {
+            --blue:      #e04daa;
+            --sky:       #2563EB;
+            --ink:       #0F172A;
+            --body:      #334155;
+            --muted:     #64748B;
+            --rule:      #E2E8F0;
+            --bg-badge:  #EFF6FF;
+            --badge-txt: #4370ed;
+        }
+
+        /* ── RESET & PAGE ───────────────────────────────────── */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-size: 13.5px;
+            line-height: 1.55;
+            color: var(--body);
+            background: #fff;
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 48px 52px;
+        }
+
+        /* ── IN PDF: không cần margin ngoài ─────────────────── */
+        @media print {
+            body { padding: 32px 44px; max-width: 100%; }
+            .no-print { display: none !important; }
+            a { color: inherit; }
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           HEADER
+        ═══════════════════════════════════════════════════════ */
+        header {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 12px;
+            align-items: start;
+            padding-bottom: 22px;
+            border-bottom: 2px solid var(--blue);
+            margin-bottom: 28px;
+        }
+
+        .name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--ink);
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            margin-bottom: 4px;
+        }
+
+        .title-tag {
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--blue);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .contact-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 18px;
+            list-style: none;
+            font-size: 12.5px;
+            color: var(--muted);
+        }
+
+        .contact-list a { color: var(--muted); text-decoration: none; }
+        .contact-list a:hover { color: var(--blue); }
+
+        /* Cột phải: ảnh placeholder (tuỳ chọn) */
+        .avatar-box {
+            width: 82px;
+            height: 82px;
+            border-radius: 8px;
+            background: var(--bg-badge);
+            border: 1.5px solid var(--rule);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+            font-size: 11px;
+            text-align: center;
+            line-height: 1.4;
+            flex-shrink: 0;
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           LAYOUT BODY: 2 CỘT
+        ═══════════════════════════════════════════════════════ */
+        .body-grid {
+            display: grid;
+            grid-template-columns: 1fr 200px;
+            gap: 0 32px;
+            align-items: start;
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           SECTION
+        ═══════════════════════════════════════════════════════ */
+        section { margin-bottom: 24px; }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--blue);
+            border-bottom: 1px solid var(--rule);
+            padding-bottom: 5px;
+            margin-bottom: 14px;
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           MỤC KINH NGHIỆM / GIÁO DỤC (dạng dòng)
+        ═══════════════════════════════════════════════════════ */
+        .entry { margin-bottom: 16px; }
+        .entry:last-child { margin-bottom: 0; }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .entry-role {
+            font-weight: 600;
+            color: var(--ink);
+            font-size: 13.5px;
+        }
+
+        .entry-date {
+            font-size: 11.5px;
+            color: var(--muted);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .entry-org {
+            font-size: 12.5px;
+            color: var(--sky);
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .entry-body {
+            padding-left: 12px;
+            border-left: 2px solid var(--rule);
+            margin-top: 6px;
+        }
+
+        .entry-body ul { list-style: none; }
+
+        .entry-body li {
+            font-size: 12.5px;
+            color: var(--body);
+            padding: 2px 0;
+            padding-left: 14px;
+            position: relative;
+            line-height: 1.55;
+        }
+
+        .entry-body li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--blue);
+            font-size: 10px;
+            top: 3px;
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           THÀNH TÍCH — badge nổi bật
+        ═══════════════════════════════════════════════════════ */
+        .achievement-list { list-style: none; }
+
+        .achievement-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 11px;
+            padding: 10px 12px;
+            background: var(--bg-badge);
+            border-radius: 6px;
+            border-left: 3px solid var(--blue);
+        }
+
+        .ach-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+            line-height: 1;
+            margin-top: 1px;
+        }
+
+        .ach-text strong {
+            display: block;
+            font-size: 12.5px;
+            font-weight: 600;
+            color: var(--ink);
+            line-height: 1.35;
+        }
+
+        .ach-text span {
+            font-size: 11.5px;
+            color: var(--muted);
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           CỘT PHẢI: KỸ NĂNG / MÔN DẠY / THÔNG TIN
+        ═══════════════════════════════════════════════════════ */
+        .sidebar section { margin-bottom: 22px; }
+
+        /* Tags */
+        .tag-group { display: flex; flex-wrap: wrap; gap: 5px; }
+
+        .tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 500;
+            padding: 3px 9px;
+            background: var(--bg-badge);
+            color: var(--badge-txt);
+            border-radius: 100px;
+            border: 1px solid #BFDBFE;
+            line-height: 1.4;
+        }
+
+        /* Thanh kỹ năng đơn giản */
+        .skill-bar-list { list-style: none; }
+
+        .skill-bar-item {
+            margin-bottom: 9px;
+            font-size: 12px;
+        }
+
+        .skill-bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3px;
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .skill-bar-label span { color: var(--muted); font-weight: 400; font-size: 11px; }
+
+        .bar-track {
+            height: 4px;
+            background: var(--rule);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--blue), #60A5FA);
+            border-radius: 4px;
+        }
+
+        /* Info list (sidebar) */
+        .info-list { list-style: none; }
+
+        .info-list li {
+            font-size: 12px;
+            color: var(--body);
+            padding: 3px 0;
+            display: flex;
+            gap: 7px;
+            align-items: baseline;
+        }
+
+        .info-list .lbl {
+            color: var(--muted);
+            font-size: 11px;
+            min-width: 52px;
+            flex-shrink: 0;
+        }
+
+        /* ═══════════════════════════════════════════════════════
+           NÚT IN (không in được thì ẩn đi)
+        ═══════════════════════════════════════════════════════ */
+        .print-btn {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            padding: 10px 20px;
+            background: var(--blue);
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(29,78,216,0.4);
+            transition: background 0.2s;
+        }
+        .print-btn:hover { background: #1E40AF; }
+
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════ -->
+<header>
+    <div>
+        <!-- ↓ THAY TÊN THẬT CỦA BẠN -->
+        <div class="name">Trần Lê Thảo Linh</div>
+        <div class="title-tag">Gia sư Toán &amp; Trợ giảng</div>
+
+        <ul class="contact-list">
+            <!-- ↓ THAY thông tin liên lạc thật -->
+            <li>📞 0393825201</li>
+            <li>✉ linhtltcs2@gmail.com</li>
+            <li>📍 Thanh Xuân, Hà Nội</li>
+            <li><a href="https://github.com/liviaisthebest911-alt">github.com/username</a></li>
+        </ul>
     </div>
 
-    <div class="about-grid">
-        <div class="text-stack">
-            <p><strong>Trường:</strong> VNU-HUS</p>
-            <p><strong>Ngành:</strong> Khoa học Máy tính và Thông Tin</p>
-            <p><strong>Định hướng:</strong> Java OOP, Linux, Bash, Toán học ứng dụng, Computer Science.</p>
-        </div>
-
-        <div class="profile-card">
-            <button class="btn btn-primary" type="button" id="print-cv">In / Lưu PDF</button>
-        </div>
+    <!-- Ô ảnh đại diện — thay bằng thẻ <img> nếu có ảnh -->
+    <div class="avatar-box" aria-label="Ảnh đại diện">
+        Ảnh<br/>3×4
     </div>
-</section>
+</header>
+
+
+<!-- ══════════════════════════════════════════
+     BODY: CỘT CHÍNH + CỘT PHỤ
+══════════════════════════════════════════ -->
+<div class="body-grid">
+
+    <!-- ╔═════════════════════════════════════
+         CỘT CHÍNH (trái)
+    ═════════════════════════════════════════╗ -->
+    <main>
+
+        <!-- MỤC TIÊU -->
+        <section>
+            <h2 class="section-title">Mục tiêu ứng tuyển</h2>
+            <p style="font-size:12.5px; line-height:1.7; color:var(--body);">
+                Mong muốn trở thành gia sư/trợ giảng Toán cho học sinh Tiểu học, THCS và THPT. Sở hữu nền tảng kiến thức Toán học vững chắc cùng tư duy logic được rèn luyện tại khoa Toán–Tin–Cơ học, Trường Đại học Khoa học Tự nhiên, ĐHQG Hà Nội (VNU-HUS), có khả năng truyền đạt kiến thức rõ ràng và phù hợp với từng trình độ học sinh.
+            </p>
+        </section>
+
+        <!-- THÀNH TÍCH NỔI BẬT -->
+        <section>
+            <h2 class="section-title">Thành tích nổi bật</h2>
+            <ul class="achievement-list">
+
+                <li class="achievement-item">
+                    <span class="ach-icon">🥇</span>
+                    <div class="ach-text">
+                        <strong>9 điểm Toán — Kỳ thi THPT Quốc gia 2025</strong>
+                        <span>Thuộc top điểm cao toàn quốc môn Toán</span>
+                    </div>
+                </li>
+
+                <li class="achievement-item">
+                    <span class="ach-icon">🥉</span>
+                    <div class="ach-text">
+                        <strong>Giải Ba — Kỳ thi Học sinh giỏi Toán cấp Tỉnh</strong>
+                        <span>Thi và đạt giải trong khuôn khổ chương trình THPT</span>
+                    </div>
+                </li>
+
+                <li class="achievement-item">
+                    <span class="ach-icon">📊</span>
+                    <div class="ach-text">
+                        <strong>40/50 điểm phần Định lượng — Đánh giá năng lực HSA</strong>
+                        <span>Có nền tảng toán tương đối ở cả Chương Trình Cũ & Mới</span>
+                    </div>
+                </li>
+
+                <li class="achievement-item">
+                    <span class="ach-icon">🎓</span>
+                    <div class="ach-text">
+                        <strong>Điểm xét tuyển đại học: 27,625 / 30</strong>
+                        <span>Trúng tuyển Khoa Toán–Tin–Cơ học, VNU-HUS</span>
+                    </div>
+                </li>
+
+            </ul>
+        </section>
+
+        <!-- HỌC VẤN -->
+        <section>
+            <h2 class="section-title">Học vấn</h2>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-role">Sinh viên Đại học</span>
+                    <span class="entry-date">09/2025 — nay</span>
+                </div>
+                <div class="entry-org">
+                    Khoa Toán – Tin – Cơ học &nbsp;·&nbsp;
+                    Trường ĐH Khoa học Tự nhiên, ĐHQG Hà Nội (VNU-HUS)
+                </div>
+                <div class="entry-body">
+                    <ul>
+                        <li>Chương trình đào tạo chuẩn mực về Toán ứng dụng và tin học</li>
+                        <li>Học các môn nền tảng: Giải tích, Đại số tuyến tính đều đạt điểm A</li>
+                        <!-- ↑ Thêm thành tích học kỳ 1 khi có kết quả -->
+                    </ul>
+                </div>
+            </div>
+
+
+
+        </section>
+
+        <!-- KINH NGHIỆM DẠY (nếu có) -->
+        <section>
+            <h2 class="section-title">Kinh nghiệm giảng dạy</h2>
+
+            <div class="entry">
+                <div class="entry-header">
+                    <span class="entry-role">Gia sư Toán cá nhân</span>
+                    <span class="entry-date">2024 — nay</span>
+                </div>
+                <div class="entry-org">Dạy kèm tự do</div>
+                <div class="entry-body">
+                    <ul>
+                        <!-- ↓ THAY bằng kinh nghiệm thật nếu có, nếu chưa có thì xoá section này -->
+                        <li>Hỗ trợ ôn thi THPTQG môn Toán cho học sinh lớp 12</li>
+                        <li>Hướng dẫn giải toán tư duy cho học sinh lớp 9 chuẩn bị thi vào 10</li>
+                        <li>Thiết kế lộ trình ôn tập cá nhân hóa theo năng lực từng học sinh</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Nếu chưa có kinh nghiệm, thay bằng đoạn này: -->
+            <!--
+            <p style="font-size:12.5px; color:var(--muted); font-style:italic;">
+              Hiện chưa có kinh nghiệm dạy kèm chính thức — sẵn sàng bắt đầu
+              và cam kết chuẩn bị bài bản cho mỗi buổi học.
+            </p>
+            -->
+
+        </section>
+
+    </main>
+
+    <!-- ╔═════════════════════════════════════
+         CỘT PHỤ (phải / sidebar)
+    ═════════════════════════════════════════╗ -->
+    <aside class="sidebar">
+
+        <!-- THÔNG TIN CÁ NHÂN -->
+        <section>
+            <h2 class="section-title">Thông tin</h2>
+            <ul class="info-list">
+                <!-- ↓ THAY thông tin thật -->
+                <li><span class="lbl">Khu vực</span>Thanh Xuân, Hà Nội</li>
+                <li><span class="lbl">Hình thức</span> Online &amp; Offline</li>
+            </ul>
+        </section>
+
+        <!-- MÔN DẠY -->
+        <section>
+            <h2 class="section-title">Môn dạy</h2>
+            <div class="tag-group">
+                <span class="tag">Toán 6–9</span>
+                <span class="tag">Toán 10–11</span>
+                <span class="tag">Toán tiểu học</span>
+                <span class="tag">Toán vào 10</span>
+            </div>
+        </section>
+
+        <!-- MẢNG MẠNH -->
+        <section>
+            <h2 class="section-title">Mảng mạnh</h2>
+            <ul class="skill-bar-list">
+
+                <li class="skill-bar-item">
+                    <div class="skill-bar-label">
+                        Giải tích <span>Đạo hàm, tích phân</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill" style="width:95%"></div></div>
+                </li>
+
+                <li class="skill-bar-item">
+                    <div class="skill-bar-label">
+                        Đại số <span>PT, BPT, hệ</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill" style="width:92%"></div></div>
+                </li>
+
+                <li class="skill-bar-item">
+                    <div class="skill-bar-label">
+                        Hình học <span>Tọa độ, không gian</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill" style="width:88%"></div></div>
+                </li>
+
+                <li class="skill-bar-item">
+                    <div class="skill-bar-label">
+                        Tổ hợp – XS <span>Đếm, xác suất</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill" style="width:85%"></div></div>
+                </li>
+
+                <li class="skill-bar-item">
+                    <div class="skill-bar-label">
+                        Tư duy định lượng
+                    </div>
+                    <div class="bar-track"><div class="bar-fill" style="width:100%"></div></div>
+                </li>
+
+            </ul>
+        </section>
+
+        <!-- KỸ NĂNG MỀM -->
+        <section>
+            <h2 class="section-title">Kỹ năng khác</h2>
+            <div class="tag-group">
+                <span class="tag">Kiên nhẫn</span>
+                <span class="tag">Giải thích rõ ràng</span>
+                <span class="tag">Soạn đề cương</span>
+                <span class="tag">Theo dõi tiến độ</span>
+                <span class="tag">Có kiến thức cơ bản về lập trình và AI</span>
+                <!-- ↑ Thêm/bớt tag cho phù hợp -->
+            </div>
+        </section>
+
+        <!-- MỨC HỌC PHÍ (tuỳ chọn, có thể xoá) -->
+        <section>
+            <h2 class="section-title">Học phí</h2>
+            <ul class="info-list">
+                <li><span class="lbl">Mức Độ</span> Thỏa thuận</li>
+                <li><span class="lbl">Online</span> Linh hoạt</li>
+            </ul>
+            <p style="font-size:11px; color:var(--muted); margin-top:7px; line-height:1.5;">
+                Có thể thương lượng tùy điều kiện gia đình học sinh.
+            </p>
+        </section>
+
+    </aside><!-- /.sidebar -->
+
+</div><!-- /.body-grid -->
+
+
+<!-- NÚT IN PDF (chỉ hiện trên trình duyệt, không in) -->
+<button class="print-btn no-print" onclick="window.print()">
+    🖨️ In / Xuất PDF
+</button>
+
+<script>
+    /* Khi in: ẩn nút, chỉ giữ nội dung CV */
+    window.addEventListener('beforeprint', () => {
+        document.querySelector('.print-btn').style.display = 'none';
+    });
+    window.addEventListener('afterprint', () => {
+        document.querySelector('.print-btn').style.display = '';
+    });
+</script>
+
+</body>
+</html>
