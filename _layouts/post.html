@@ -1,15 +1,11 @@
----
-title: Blog
-permalink: /blog.html
----
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Blog cá nhân của Olive June Math — ghi chép học tập, lập trình Python & Java." />
+    <meta name="description" content="{{ page.excerpt | default: site.description }}" />
     <meta name="theme-color" content="#fff6f8" />
-    <title>Blog · Olive June Math</title>
+    <title>{{ page.title }} · {{ site.title }}</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -57,37 +53,39 @@ permalink: /blog.html
 </header>
 
 <main id="main">
-    <section class="content-section" aria-labelledby="blog-heading">
-        <div class="section-shell">
-            <div class="section-heading fade-in">
+    <article class="content-section post-page">
+        <div class="section-shell" style="max-width: 760px;">
+
+            <a class="btn btn-ghost btn-sm back-link" href="{{ '/blog.html' | relative_url }}">← Về trang Blog</a>
+
+            <header class="post-header fade-in">
                 <p class="section-kicker">Blog</p>
-                <h1 id="blog-heading">Ghi chép<br />học tập &amp; lập trình</h1>
+                <h1>{{ page.title }}</h1>
+                <div class="post-meta">
+                    <time datetime="{{ page.date | date_to_xmlschema }}">
+                        {{ page.date | date: "%d/%m/%Y" }}
+                    </time>
+                    {% if page.tags.size > 0 %}
+                    <span class="post-tags">
+                {% for tag in page.tags %}<span>#{{ tag }}</span>{% endfor %}
+              </span>
+                    {% endif %}
+                </div>
+            </header>
+
+            <div class="post-content fade-in">
+                {{ content }}
             </div>
 
-            {% if site.posts.size == 0 %}
-            <p>Chưa có bài viết nào. Thêm file mới vào thư mục <code>_posts</code> để bắt đầu.</p>
-            {% else %}
-            <div class="blog-list">
-                {% for post in site.posts %}
-                <a class="blog-card fade-in" href="{{ post.url | relative_url }}">
-                    <time datetime="{{ post.date | date_to_xmlschema }}" class="blog-date">
-                        {{ post.date | date: "%d/%m/%Y" }}
-                    </time>
-                    <h2>{{ post.title }}</h2>
-                    <p>{{ post.excerpt | default: post.content | strip_html | truncatewords: 30 }}</p>
-                    <span class="hub-link">Đọc tiếp →</span>
-                </a>
-                {% endfor %}
-            </div>
-            {% endif %}
+            <a class="btn btn-ghost back-link-bottom" href="{{ '/blog.html' | relative_url }}">← Về trang Blog</a>
         </div>
-    </section>
+    </article>
 </main>
 
 <footer class="site-footer">
     <div class="section-shell footer-inner">
         <p class="footer-mono">Được xây dựng bằng HTML · CSS · JS · Jekyll</p>
-        <p class="footer-mono">© <span id="footerYear"></span> Olive June Math</p>
+        <p class="footer-mono">© <span id="footerYear"></span> {{ site.title }}</p>
     </div>
 </footer>
 

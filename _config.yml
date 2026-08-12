@@ -2,3 +2,18 @@ title: Olive June Math
 description: Portfolio CV cá nhân
 url: "https://liviaisthebest911-alt.github.io"
 baseurl: ""
+
+# --- Cấu hình Blog ---
+markdown: kramdown
+permalink: /blog/:year/:month/:day/:title/
+
+# Plugin an toàn, được GitHub Pages hỗ trợ sẵn (không cần cài gì thêm)
+plugins:
+  - jekyll-feed
+
+# Không cho Jekyll build những file/thư mục không liên quan
+exclude:
+  - README.md
+  - .gitignore
+  - "*.iml"
+  - .idea/
