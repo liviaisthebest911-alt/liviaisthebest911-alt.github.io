@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="{{ page.excerpt | default: site.description }}" />
+    <meta name="theme-color" content="#fff0f5" />
+    <title>{{ page.title }} · Olive June Math</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Layout riêng cho bài viết "mộng mơ" — không dùng chung css/style.css của toàn site -->
+    <style>
+        :root {
+            --dp-cream: #fff0f5;
+            --dp-blush: #fce7f3;
+            --dp-pink: #fbcfe8;
+            --dp-accent: #f472b6;
+            --dp-deep: #831843;
+            --dp-glow: rgba(244, 114, 182, 0.35);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: linear-gradient(180deg, var(--dp-cream) 0%, var(--dp-blush) 45%, var(--dp-cream) 100%);
+            color: var(--dp-deep);
+            font-family: "Quicksand", sans-serif;
+            line-height: 1.9;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: var(--dp-accent); }
+
+        /* Thanh điều hướng nhỏ, nhẹ nhàng để quay lại blog */
+        .dp-topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 1.75rem 1.5rem 0.5rem;
+        }
+        .dp-topbar a {
+            font-family: "Quicksand", sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            color: var(--dp-deep);
+            opacity: 0.75;
+            transition: opacity 200ms ease;
+        }
+        .dp-topbar a:hover { opacity: 1; }
+
+        .dp-wrapper {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 1.5rem 1.5rem 5rem;
+        }
+
+        .dp-header {
+            text-align: center;
+            padding: 2.5rem 0 3rem;
+        }
+        .dp-eyebrow {
+            font-family: "Quicksand", sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--dp-accent);
+            margin-bottom: 0.75rem;
+        }
+        .dp-title {
+            font-family: "Dancing Script", cursive;
+            font-weight: 700;
+            font-size: clamp(2.4rem, 6vw, 3.6rem);
+            color: var(--dp-deep);
+            margin: 0 0 0.75rem;
+        }
+        .dp-date {
+            font-size: 0.9rem;
+            color: var(--dp-deep);
+            opacity: 0.65;
+        }
+        .dp-divider {
+            margin: 1.75rem auto 0;
+            font-size: 1.1rem;
+            letter-spacing: 0.6rem;
+            color: var(--dp-accent);
+        }
+
+        /* Ảnh minh hoạ — khung bo tròn, đổ bóng phát sáng hồng */
+        .dp-figure {
+            margin: 2.75rem 0;
+            text-align: center;
+        }
+        .dp-figure img {
+            width: 100%;
+            max-height: 460px;
+            object-fit: cover;
+            border-radius: 28px;
+            box-shadow: 0 18px 45px -12px var(--dp-glow), 0 0 0 6px #ffffffaa;
+            display: block;
+        }
+        .dp-figure figcaption {
+            margin-top: 0.9rem;
+            font-family: "Dancing Script", cursive;
+            font-size: 1.15rem;
+            color: var(--dp-accent);
+        }
+
+        /* Nội dung bài viết */
+        .dp-content p {
+            margin: 0 0 1.6rem;
+            font-size: 1.05rem;
+            text-align: justify;
+            letter-spacing: 0.01em;
+        }
+
+        .dp-content h2 {
+            font-family: "Dancing Script", cursive;
+            font-size: 2rem;
+            color: var(--dp-deep);
+            margin: 3rem 0 1.25rem;
+            text-align: center;
+        }
+
+        /* Trích dẫn — khung viền hồng mộng mơ, có icon lấp lánh */
+        .dp-content blockquote {
+            position: relative;
+            margin: 2.75rem auto;
+            padding: 2rem 2.25rem;
+            max-width: 560px;
+            background: #fffafc;
+            border: 1.5px solid var(--dp-pink);
+            border-radius: 24px;
+            box-shadow: 0 12px 34px -14px var(--dp-glow);
+            font-family: "Dancing Script", cursive;
+            font-size: 1.4rem;
+            line-height: 1.6;
+            color: var(--dp-deep);
+            text-align: center;
+        }
+        .dp-content blockquote::before {
+            content: "✨";
+            display: block;
+            font-size: 1.3rem;
+            margin-bottom: 0.6rem;
+        }
+        .dp-content blockquote::after {
+            content: "🩷";
+            display: block;
+            font-size: 1.1rem;
+            margin-top: 0.75rem;
+        }
+
+        .dp-signoff {
+            text-align: center;
+            margin-top: 4rem;
+            font-family: "Dancing Script", cursive;
+            font-size: 1.6rem;
+            color: var(--dp-accent);
+        }
+
+        .dp-footer-link {
+            display: block;
+            text-align: center;
+            margin-top: 3rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .dp-content p { text-align: left; }
+            .dp-content blockquote { padding: 1.5rem; font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dp-topbar">
+    <a href="{{ '/blog/' | relative_url }}">← Về trang Blog</a>
+    <a href="{{ '/index.html' | relative_url }}">Olive June Math</a>
+</div>
+
+<div class="dp-wrapper">
+    <header class="dp-header">
+        <p class="dp-eyebrow">Nhật ký cảm xúc</p>
+        <h1 class="dp-title">{{ page.title }}</h1>
+        <p class="dp-date">{{ page.date | date: "%d/%m/%Y" }}</p>
+        <p class="dp-divider">⋆｡°✩</p>
+    </header>
+
+    <article class="dp-content">
+        {{ content }}
+    </article>
+
+    <p class="dp-signoff">— hết —</p>
+    <a class="dp-footer-link" href="{{ '/blog/' | relative_url }}">← Về trang Blog</a>
+</div>
+
+</body>
+</html>
