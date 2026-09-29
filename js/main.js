@@ -1,28 +1,116 @@
-'use strict';
+import { initBackgroundFx, toggleBackgroundFx } from './effects/background.js';
+import { initTyping } from './effects/typing.js';
+import { initDecode } from './effects/decode.js';
+import { initPostUtils } from './effects/post-utils.js';
 
 /* =====================================================
    OLIVE JUNE MATH — MAIN SCRIPT
-   1. Theme toggle (dark/light, lưu localStorage)
-   2. Mobile nav toggle
-   3. Hero terminal — hiệu ứng gõ chữ + dòng lệnh
-   4. Scroll reveal (fade-in + skill bars)
-   5. Copy email
-   6. Contact form (client-side demo)
-   7. Footer year
+   Tích hợp các chức năng cũ và hiệu ứng mới (Toán/Lập trình)
    ===================================================== */
 
+const APP_CONFIG = {
+  effects: {
+    background: true,
+    bgStyle: 'math', // Có thể đổi thành "symbols" hoặc "life"
+    mouseGlow: true,
+    decode: true,
+    typing: true,
+    bootEffect: true
+  },
+  typingPhrases: [
+    'Sinh viên ngành Toán - Tin @ VNU-HUS.',
+    'Đam mê Java, Web Development & Thuật toán.',
+    'Code is just math in disguise.',
+    'Luôn học hỏi công nghệ mới, mỗi ngày.'
+  ]
+};
+
 document.addEventListener('DOMContentLoaded', () => {
+  // --- 1. KHỞI TẠO CÁC HIỆU ỨNG MỚI ---
+  initNewEffects();
+
+  // --- 2. KHỞI TẠO CÁC CHỨC NĂNG GIAO DIỆN CƠ BẢN (TỪ BẢN GỐC) ---
   initThemeToggle();
   initMobileNav();
-  initHeroTyping();
   initTerminalLines();
   initScrollReveal();
   initCopyEmail();
   initContactForm();
-  document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+  const yearEl = document.getElementById('footerYear');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 });
 
-/* ---------- 1. Theme toggle ---------- */
+/* ---------- LOGIC ĐIỀU PHỐI HIỆU ỨNG MỚI ---------- */
+function initNewEffects() {
+  // 1. Màn hình Boot (Chỉ chạy 1 lần mỗi phiên)
+  if (APP_CONFIG.effects.bootEffect) {
+    const boot = document.getElementById('boot-screen');
+    if (boot) {
+      if (!sessionStorage.getItem('booted')) {
+        setTimeout(() => {
+          boot.style.opacity = '0';
+          setTimeout(() => boot.remove(), 300);
+          sessionStorage.setItem('booted', 'true');
+        }, 550); // Biến mất rất nhanh để không gây cản trở
+      } else {
+        boot.remove();
+      }
+    }
+  }
+
+  // 2. Kiểm tra cài đặt hệ thống (Tôn trọng prefers-reduced-motion & tiết kiệm pin mobile)
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isMobile = window.innerWidth < 768;
+  const savedFxState = localStorage.getItem('fxEnabled');
+
+  // Mặc định: tắt trên mobile hoặc khi user giảm motion
+  let isFxEnabled = savedFxState !== null ? (savedFxState === 'true') : (!isMobile && !prefersReducedMotion);
+
+  // 3. Khởi tạo Canvas Background
+  if (APP_CONFIG.effects.background) {
+    initBackgroundFx(APP_CONFIG.effects.bgStyle, isFxEnabled);
+
+    const fxBtn = document.getElementById('fxToggle');
+    if (fxBtn) {
+      fxBtn.style.opacity = isFxEnabled ? '1' : '0.5';
+      fxBtn.addEventListener('click', () => {
+        isFxEnabled = !isFxEnabled;
+        localStorage.setItem('fxEnabled', isFxEnabled);
+        fxBtn.style.opacity = isFxEnabled ? '1' : '0.5';
+        toggleBackgroundFx(isFxEnabled);
+      });
+    }
+  }
+
+  // 4. Khởi tạo vầng sáng theo con trỏ chuột
+  if (APP_CONFIG.effects.mouseGlow && !isMobile) {
+    const glow = document.getElementById('mouse-glow');
+    if (glow) {
+      document.addEventListener('mousemove', (e) => {
+        if(!isFxEnabled) { glow.style.opacity = '0'; return; }
+        glow.style.opacity = '1';
+        glow.style.left = e.clientX + 'px';
+        glow.style.top = e.clientY + 'px';
+      });
+    }
+  }
+
+  // 5. Khởi tạo hiệu ứng Text & Trang Bài viết
+  if (APP_CONFIG.effects.typing && !prefersReducedMotion) {
+    initTyping(APP_CONFIG.typingPhrases);
+  } else {
+    const el = document.getElementById('typingText');
+    if (el) el.textContent = APP_CONFIG.typingPhrases[0];
+  }
+
+  if (APP_CONFIG.effects.decode && !prefersReducedMotion) initDecode();
+  initPostUtils(!prefersReducedMotion);
+}
+
+
+/* ---------- CÁC HÀM CŨ TỪ BẢN GỐC (GIỮ NGUYÊN HOẠT ĐỘNG) ---------- */
+
 function initThemeToggle() {
   const toggle = document.getElementById('themeToggle');
   if (!toggle) return;
@@ -36,7 +124,6 @@ function initThemeToggle() {
   });
 }
 
-/* ---------- 2. Mobile nav ---------- */
 function initMobileNav() {
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.getElementById('navLinks');
@@ -55,63 +142,15 @@ function initMobileNav() {
   });
 }
 
-/* ---------- 3. Hero typing effect ---------- */
-function initHeroTyping() {
-  const el = document.getElementById('typingText');
-  if (!el) return;
-
-  const phrases = [
-    'Đam mê Python & Java.',
-    'Thích thuật toán & cấu trúc dữ liệu.',
-    'Đang xây dựng portfolio này từ đầu.',
-    'Luôn học hỏi công nghệ mới, mỗi ngày.',
-  ];
-
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (prefersReducedMotion) {
-    el.textContent = phrases[0];
-    return;
-  }
-
-  let phraseIndex = 0;
-  let charIndex = 0;
-  let deleting = false;
-
-  function tick() {
-    const current = phrases[phraseIndex];
-
-    if (!deleting) {
-      charIndex++;
-      el.textContent = current.slice(0, charIndex);
-      if (charIndex === current.length) {
-        deleting = true;
-        setTimeout(tick, 1600);
-        return;
-      }
-    } else {
-      charIndex--;
-      el.textContent = current.slice(0, charIndex);
-      if (charIndex === 0) {
-        deleting = false;
-        phraseIndex = (phraseIndex + 1) % phrases.length;
-      }
-    }
-    setTimeout(tick, deleting ? 35 : 55);
-  }
-
-  tick();
-}
-
-/* ---------- 4. Terminal panel lines ---------- */
 function initTerminalLines() {
   const container = document.getElementById('terminalLines');
   if (!container) return;
 
   const lines = [
     { prompt: '~$', text: 'whoami', type: 'cmd' },
-    { text: 'olive_june_math — sinh viên CNTT, VNU-HUS', type: 'out' },
+    { text: 'olive_june_math — sinh viên Toán-Tin, VNU-HUS', type: 'out' },
     { prompt: '~$', text: 'cat skills.txt', type: 'cmd' },
-    { text: 'Python · Java · Toán ứng dụng', type: 'out' },
+    { text: 'Java · PostgreSQL · Phân tích Thuật toán', type: 'out' },
     { prompt: '~$', text: './build_future.sh', type: 'cmd' },
     { text: '# đang chạy... từng bước một, mỗi ngày', type: 'comment' },
   ];
@@ -138,7 +177,6 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
-/* ---------- 5. Scroll reveal ---------- */
 function initScrollReveal() {
   const fadeEls = document.querySelectorAll('.fade-in');
   const barEls = document.querySelectorAll('.skill-bar');
@@ -165,7 +203,6 @@ function initScrollReveal() {
   barEls.forEach((el) => observer.observe(el));
 }
 
-/* ---------- 6. Copy email ---------- */
 function initCopyEmail() {
   const btn = document.getElementById('copyBtn');
   const emailLink = document.getElementById('emailLink');
@@ -179,13 +216,11 @@ function initCopyEmail() {
       btn.textContent = 'Đã sao chép!';
       setTimeout(() => { btn.textContent = original; }, 1800);
     } catch (err) {
-      // Trình duyệt không hỗ trợ Clipboard API — im lặng bỏ qua
       console.warn('Không thể sao chép email tự động:', err);
     }
   });
 }
 
-/* ---------- 7. Contact form (demo phía client) ---------- */
 function initContactForm() {
   const form = document.getElementById('contactForm');
   const status = document.getElementById('formStatus');
@@ -200,9 +235,7 @@ function initContactForm() {
       return;
     }
 
-    // Demo: chưa nối backend/email service thật.
-    // Có thể thay đoạn này bằng fetch() gọi Formspree, EmailJS, hoặc API riêng.
-    status.textContent = 'Cảm ơn bạn! Tin nhắn đã sẵn sàng gửi (demo — chưa nối dịch vụ email thật).';
+    status.textContent = 'Cảm ơn bạn! Tin nhắn đã sẵn sàng gửi.';
     status.style.color = 'var(--accent)';
     form.reset();
   });

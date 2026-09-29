@@ -1,0 +1,30 @@
+---
+layout: default
+title: 404 Not Found
+permalink: /404.html
+---
+<div class="section-shell content-section" style="display: flex; justify-content: center;">
+    <div class="terminal-404">
+        <div style="color: var(--danger)">cat: page.html: No such file or directory</div>
+        <div style="margin-top: 1rem;">
+            <span>olive_june_math@vnu-hus:~$ </span>
+            <input type="text" class="terminal-404-input" id="term-input" autofocus autocomplete="off">
+        </div>
+        <div id="term-output" style="margin-top: 1rem; color: var(--text-muted)"></div>
+    </div>
+</div>
+
+<script>
+    const input = document.getElementById('term-input');
+    const out = document.getElementById('term-output');
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const cmd = input.value.trim().toLowerCase();
+            if (cmd === 'home') window.location.href = "{{ '/' | relative_url }}";
+            else if (cmd === 'blog') window.location.href = "{{ '/blog/' | relative_url }}";
+            else if (cmd === 'help') out.innerText = "Lệnh hỗ trợ: home, blog, help";
+            else if (cmd !== '') out.innerText = "Command not found: " + cmd + ". Gõ 'help' để xem các lệnh.";
+            input.value = '';
+        }
+    });
+</script>

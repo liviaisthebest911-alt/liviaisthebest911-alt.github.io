@@ -1,0 +1,14 @@
+<div class="widget-container function-plotter" id="plot-widget-{{ include.id | default: '1' }}">
+    <div class="widget-header widget-controls">
+        <input type="text" class="func-input" value="sin(x)*x" placeholder="Nhập hàm, VD: x^2 + 2*x" style="flex:1;">
+        <button class="btn-plot">Vẽ</button>
+        <span style="font-size: 0.8rem; color: var(--text-muted)">Kéo: Tịnh tiến | Cuộn: Zoom</span>
+    </div>
+    <div class="widget-canvas-wrapper">
+        <canvas class="plot-canvas" height="300"></canvas>
+    </div>
+</div>
+<script type="module">
+    import { initPlotWidget } from '{{ "/js/widgets/function-plotter.js" | relative_url }}';
+    initPlotWidget('plot-widget-{{ include.id | default: "1" }}');
+</script>

@@ -1,94 +1,31 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="{{ page.excerpt | default: site.description }}" />
-    <meta name="theme-color" content="#fff6f8" />
-    <title>{{ page.title }} · {{ site.title }}</title>
+---
+layout: default
+---
+<!-- Canvas vẽ đường sin tiến độ -->
+<canvas id="reading-progress-canvas" aria-hidden="true"></canvas>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<article class="post-container section-shell content-section" style="max-width: 760px;">
+    <a href="{{ '/blog.html' | relative_url }}" class="btn btn-ghost btn-sm back-link">← Về trang Blog</a>
 
-    <link rel="stylesheet" href="{{ '/css/style.css' | relative_url }}" />
-</head>
-<body>
-<script>
-    (function () {
-        var saved = localStorage.getItem('theme');
-        var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-        document.documentElement.setAttribute('data-theme', theme);
-    })();
-</script>
+    <header class="post-header fade-in">
+        <p class="section-kicker">Blog</p>
+        <h1 class="decode-trigger" data-decode-once="true">{{ page.title }}</h1>
 
-<a class="skip-link" href="#main">Bỏ qua đến nội dung chính</a>
-
-<header class="site-header">
-    <nav class="navbar section-shell" aria-label="Điều hướng chính">
-        <a href="{{ '/index.html' | relative_url }}" class="brand" aria-label="Trang chủ">
-            <span class="brand-mark" aria-hidden="true">OJ</span>
-            <span class="brand-text">Olive June Math</span>
-        </a>
-
-        <div class="nav-links" id="navLinks">
-            <a href="{{ '/about.html' | relative_url }}">Giới thiệu</a>
-            <a href="{{ '/skills.html' | relative_url }}">Kỹ năng</a>
-            <a href="{{ '/projects.html' | relative_url }}">Dự án</a>
-            <a href="{{ '/blog.html' | relative_url }}" aria-current="page">Blog</a>
-            <a href="{{ '/contact.html' | relative_url }}">Liên hệ</a>
-            <a href="{{ '/cv.html' | relative_url }}" class="btn-nav-cta">Xem CV</a>
-        </div>
-
-        <div class="nav-controls">
-            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Chuyển chế độ sáng / tối">
-                <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-                <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            </button>
-            <button class="nav-toggle" id="navToggle" aria-label="Mở menu" aria-expanded="false" aria-controls="navLinks">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </nav>
-</header>
-
-<main id="main">
-    <article class="content-section post-page">
-        <div class="section-shell" style="max-width: 760px;">
-
-            <a class="btn btn-ghost btn-sm back-link" href="{{ '/blog.html' | relative_url }}">← Về trang Blog</a>
-
-            <header class="post-header fade-in">
-                <p class="section-kicker">Blog</p>
-                <h1>{{ page.title }}</h1>
-                <div class="post-meta">
-                    <time datetime="{{ page.date | date_to_xmlschema }}">
-                        {{ page.date | date: "%d/%m/%Y" }}
-                    </time>
-                    {% if page.tags.size > 0 %}
-                    <span class="post-tags">
-                {% for tag in page.tags %}<span>#{{ tag }}</span>{% endfor %}
-              </span>
-                    {% endif %}
-                </div>
-            </header>
-
-            <div class="post-content fade-in">
-                {{ content }}
+        <div class="post-meta">
+            <time class="commit-date" datetime="{{ page.date | date_to_xmlschema }}">
+                {{ page.date | date: "%Y-%m-%d" }}
+            </time>
+            <div class="post-tags">
+                {% for tag in page.tags %}
+                <span>{ {{ tag }} }</span>
+                {% endendfor %}
             </div>
-
-            <a class="btn btn-ghost back-link-bottom" href="{{ '/blog.html' | relative_url }}">← Về trang Blog</a>
         </div>
-    </article>
-</main>
+    </header>
 
-<footer class="site-footer">
-    <div class="section-shell footer-inner">
-        <p class="footer-mono">Được xây dựng bằng HTML · CSS · JS · Jekyll</p>
-        <p class="footer-mono">© <span id="footerYear"></span> {{ site.title }}</p>
+    <div class="post-content fade-in">
+        {{ content }}
     </div>
-</footer>
 
-<script src="{{ '/js/main.js' | relative_url }}"></script>
-</body>
-</html>
+    <a href="{{ '/blog.html' | relative_url }}" class="btn btn-ghost back-link-bottom">← Về trang Blog</a>
+</article>

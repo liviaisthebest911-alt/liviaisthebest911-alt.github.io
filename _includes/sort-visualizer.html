@@ -1,0 +1,21 @@
+<div class="widget-container sort-visualizer" id="sort-widget-{{ include.id | default: '1' }}">
+    <div class="widget-header widget-controls">
+        <select class="algo-select">
+            <option value="bubble">Bubble Sort</option>
+            <option value="selection">Selection Sort</option>
+            <option value="insertion">Insertion Sort</option>
+            <option value="quick">Quick Sort</option>
+        </select>
+        <input type="range" class="size-slider" min="10" max="100" value="30" title="Số phần tử">
+        <input type="range" class="speed-slider" min="1" max="100" value="50" title="Tốc độ">
+        <button class="btn-play">Chạy</button>
+        <button class="btn-shuffle">Trộn lại</button>
+    </div>
+    <div class="widget-canvas-wrapper">
+        <canvas class="sort-canvas" height="200"></canvas>
+    </div>
+</div>
+<script type="module">
+    import { initSortWidget } from '{{ "/js/widgets/sort-visualizer.js" | relative_url }}';
+    initSortWidget('sort-widget-{{ include.id | default: "1" }}');
+</script>
